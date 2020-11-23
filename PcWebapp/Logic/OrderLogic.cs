@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Logic
 {
-    class OrderLogic
+    public class OrderLogic
     {
         IRepository<Product> productRepo;
         IRepository<Customer> customerRepo;

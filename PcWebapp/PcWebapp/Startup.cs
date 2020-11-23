@@ -7,6 +7,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Models;
+using Data;
+using Repository;
+using Logic;
 
 namespace PcWebapp
 {
@@ -16,6 +20,15 @@ namespace PcWebapp
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc(opt => opt.EnableEndpointRouting = false);
+
+            services.AddTransient<ProductLogic, ProductLogic>();
+            services.AddTransient<CustomerLogic, CustomerLogic>();
+            services.AddTransient<OrderLogic, OrderLogic>();
+            services.AddTransient<IRepository<Product>, ProductRepo>();
+            services.AddTransient<IRepository<Customer>, CustomerRepo>();
+            services.AddTransient<IRepository<Order>, OrderRepo>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -27,14 +40,8 @@ namespace PcWebapp
             }
 
             app.UseRouting();
+            app.UseMvcWithDefaultRoute();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
-            });
         }
     }
 }
