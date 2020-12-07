@@ -1,2 +1,78 @@
 ﻿body {
+    background-color: #E5E5E5;
+    margin-top: 0px;
+    margin-right: 0px;
+    margin-bottom: 0px;
+    margin-left: 0px;
+    font-style: normal;
+    font-weight: 200;
+}
+
+.container {
+    width: 95%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 1000px;
+    background-color: #f2f2f2;
+}
+
+header {
+    width: 100%;
+    height: 7%;
+    background-color: #143d59;
+}
+
+.mainMenuButton {
+    color: #FCA311;
+    font-weight: bold;
+    font-size: 28px;
+    width: auto;
+    float: left;
+    margin-top: 15px;
+    margin-left: 25px;
+    letter-spacing: 4px;
+}
+
+nav {
+    float: right;
+    width: 50%;
+    text-align: right;
+    margin-right: 25px;
+}
+
+header nav ul {
+    list-style: none;
+    float: right;
+}
+
+nav ul li {
+    float: left;
+    color: #FFFFFF;
+    font-size: 28px;
+    text-align: left;
+    margin-right: 25px;
+    letter-spacing: 2px;
+    font-weight: bold;
+}
+
+ul li a {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+ul li:hover a {
+    color: #D0A866;
+}
+
+.mainText {
+    float: left;
+    color: #000000;
+    font-size: 22px;
+    text-align: left;
+    margin-left: 25px;
+    margin-right: 25px;
+    letter-spacing: 2px;
+    font-weight: 100;
 }

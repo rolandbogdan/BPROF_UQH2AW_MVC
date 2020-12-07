@@ -40,6 +40,7 @@ namespace PcWebapp
             }
 
             app.UseRouting();
+            app.UseStaticFiles();
             app.UseMvcWithDefaultRoute();
 
         }
