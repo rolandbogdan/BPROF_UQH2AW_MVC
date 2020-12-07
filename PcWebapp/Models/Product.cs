@@ -6,14 +6,17 @@ using System.Text;
 
 namespace Models
 {
+    public enum ProductCategory
+    {
+        CPU, Motherboard, RAM, VideoCard, PowerSupply, Storage, Case, Cooler
+    }
     public class Product
     {
         [Key]
         public string ProductID { get; set; }
         [StringLength(50)]
         public string ProductName { get; set; }
-        [StringLength(50)]
-        public string Category { get; set; }
+        public ProductCategory Category { get; set; }
         [StringLength(50)]
         public string Manufacturer { get; set; }
         public int Price { get; set; }

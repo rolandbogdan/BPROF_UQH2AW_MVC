@@ -1,0 +1,53 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Add item to store</title>
+    <link rel="stylesheet" href="~/main.css" />
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="/Home/Index">
+                <h4 class="mainMenuButton">Főmenü</h4>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="/Home/AddProduct">Termék hozzáadása</a></li>
+                    <li><a href="#Gomb2">Gomb2</a></li>
+                    <li><a href="#Gomb3">Gomb3</a></li>
+                </ul>
+            </nav>
+        </header>
+        <div class="mainText">
+            <h1>Új termék hozzáadása</h1>
+            <form action="/Home/AddProduct" method="post">
+                Termék neve: <br />
+                <input type="text" name="ProductName" value="" /> <br />
+                Kategória: <br />
+                <select name="ProductCategory">
+                    <option value="CPU">Processzor</option>
+                    <option value="Motherboard">Alaplap</option>
+                    <option value="RAM">Memória</option>
+                    <option value="VideoCard">Videókártya</option>
+                    <option value="PowerSupply">Táp</option>
+                    <option value="Storage">Tárhely</option>
+                    <option value="Case">Gépház</option>
+                    <option value="Cooler">Hűtő</option>
+                </select> <br />
+                Gyártó: <br />
+                <input type="text" name="Manufacturer" value="" /> <br />
+                Ár: <br />
+                <input type="number" name="Price" value="" /> <br />
+                Raktáron: <br />
+                <input type="checkbox" name="InStock" value="" /> <br />
+                Mennyiség: <br />
+                <input type="number" name="Quantity" value="" /> <br />
+                Leírás: <br />
+                <input type="text" name="Description" value="" /> <br />
+                <input type="submit" value="Add new" />
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Logic;
+using Models;
 
 namespace PcWebapp.Controllers
 {
@@ -23,6 +24,19 @@ namespace PcWebapp.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+        [HttpGet]
+        public IActionResult AddProduct()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult AddProduct(Product p)
+        {
+            p.ProductID = Guid.NewGuid().ToString();
+            //add to database
+            //save database
+            return RedirectToAction(nameof(Index));
         }
     }
 }
