@@ -74,5 +74,14 @@ namespace PcWebapp.Controllers
             //if felhasználónév+jelszó nem jó, return rossz jelszó, else
             return View();
         }
+        public IActionResult LogOut()
+        {
+            return RedirectToAction(nameof(Index));
+        }
+        public IActionResult AdminIndex()
+        {
+            //if felhasználónév+jelszó nem jó, return rossz jelszó, else
+            return View();
+        }
     }
 }
