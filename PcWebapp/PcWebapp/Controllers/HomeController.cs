@@ -34,8 +34,7 @@ namespace PcWebapp.Controllers
         public IActionResult AddProduct(Product p)
         {
             p.ProductID = Guid.NewGuid().ToString();
-            //add to database
-            //save database
+            productlogic.AddProduct(p);
             return RedirectToAction(nameof(Index));
         }
     }
