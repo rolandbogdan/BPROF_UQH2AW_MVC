@@ -60,27 +60,12 @@ namespace PcWebapp.Controllers
             this.productlogic.AddProduct(JsonConvert.DeserializeObject<Product>(pr));
             return RedirectToAction(nameof(Index));
         }
-        public IActionResult LoginPage()
-        {
-            return View();
-        }
-        public IActionResult RegisterPage()
-        {
-            return View();
-        }
-        [HttpPost]
         public IActionResult UserIndex()
         {
-            //if felhasználónév+jelszó nem jó, return rossz jelszó, else
             return View();
-        }
-        public IActionResult LogOut()
-        {
-            return RedirectToAction(nameof(Index));
         }
         public IActionResult AdminIndex()
         {
-            //if felhasználónév+jelszó nem jó, return rossz jelszó, else
             return View();
         }
     }
