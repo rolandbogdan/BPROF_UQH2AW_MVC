@@ -1,5 +1,4 @@
-﻿@model IQueryable<Models.Product>
-<!doctype html>
+﻿<!doctype html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -21,21 +20,8 @@
             </nav>
         </header>
         <div class="mainText">
-            <h1>Termékek listája:</h1><br />
-            @foreach (var item in Model)
-            {
-                <div>
-                    Termék neve: @item.ProductName <br />
-                    Kategória: @item.Category.ToString() <br />
-                    Gyártó: @item.Manufacturer <br />
-                    Ár: @item.Price <br />
-                    Leírás: @item.Description <br />
-                </div>
-                <br /> <br />
-            }
-            <form action="/Home/ProductDataGenerator" method="post">
-                <input type="submit" value="Export to JSON" />
-            </form>
+            <h1>Felhasználói főoldal</h1>
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatem dolorum consectetur facere est, optio doloribus ab ratione a adipisci eaque reiciendis iure! Nam velit tempora neque odio commodi, temporibus porro.</p>
         </div>
     </div>
 </body>

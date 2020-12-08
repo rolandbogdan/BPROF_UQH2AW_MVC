@@ -13,15 +13,20 @@
             </a>
             <nav>
                 <ul>
-                    <li><a href="/Home/LoginPage">Bejelentkezés</a></li>
                     <li><a href="/Home/RegisterPage">Regisztráció</a></li>
                     <li><a href="/Home/GenerateData">Minta adatok betöltése</a></li>
                 </ul>
             </nav>
         </header>
         <div class="mainText">
-            <h1>Főoldal</h1>
-            <a href="/Home/ListProducts">Termék lista</a>
+            <h1>Bejelentkezés</h1><br />
+            <form action="/Home/UserIndex" method="post">
+                Email cím: <br />
+                <input type="text" name="username"/> <br /><br />
+                Jelszó: <br />
+                <input type="password" name="password"/>
+                <input type="submit" value="Bejelentkezés" />
+            </form>
         </div>
     </div>
 </body>
