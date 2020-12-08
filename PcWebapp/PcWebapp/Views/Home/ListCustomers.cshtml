@@ -1,0 +1,42 @@
+﻿@model IQueryable<Models.Customer>
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Generic PC store</title>
+    <link rel="stylesheet" href="~/main.css" />
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="/Home/Index">
+                <h4 class="mainMenuButton">Főmenü</h4>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="/Home/AdminIndex">Admin mód</a></li>
+                    <li><a href="/Home/UserIndex">User mód</a></li>
+                    <li><a href="/Home/GenerateData">Minta adatok betöltése</a></li>
+                </ul>
+            </nav>
+        </header>
+        <div class="mainText">
+            <h1>Vásárlók listája:</h1><br />
+            @foreach (var item in Model)
+            {
+                <div>
+                    Vásárló neve: @item.CustomerName <br />
+                    Email cím: @item.EmailAddress <br />
+                    Telefonszám: @item.PhoneNumber  <br />
+                    Cím: @item.Address <br />
+                    Regisztráció dátuma: @item.RegDate.ToString() <br />
+                </div>
+                <br /> <br />
+            }
+            <form action="/Home/CustomerDataGenerator" method="post">
+                <input type="submit" value="Export to JSON" />
+            </form>
+        </div>
+    </div>
+</body>
+</html>

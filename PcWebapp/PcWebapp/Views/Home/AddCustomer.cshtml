@@ -1,0 +1,40 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Add item to store</title>
+    <link rel="stylesheet" href="~/main.css" />
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="/Home/Index">
+                <h4 class="mainMenuButton">Főmenü</h4>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="/Home/AdminIndex">Admin mód</a></li>
+                    <li><a href="/Home/UserIndex">User mód</a></li>
+                    <li><a href="/Home/GenerateData">Minta adatok betöltése</a></li>
+                </ul>
+            </nav>
+        </header>
+        <div class="mainText">
+            <h1>Új vásárló hozzáadása</h1>
+            <form action="/Home/AddProduct" method="post">
+                Teljes név:: <br />
+                <input type="text" name="CustomerName" value="" /> <br />
+                Email cím: <br />
+                <input type="email" name="EmailAddress" value="" /> <br />
+                Telefonszám: <br />
+                <input type="text" name="PhoneNumber" value="" placeholder="+36 30 123 4567"/> <br />
+                Cím: <br />
+                <input type="text" name="Address" value="" /> <br />
+                Jelszó: <br />
+                <input type="password" name="Password" value="" /> <br />
+                <input type="submit" value="Új vásárló hozzáadása" />
+            </form>
+        </div>
+    </div>
+</body>
+</html>

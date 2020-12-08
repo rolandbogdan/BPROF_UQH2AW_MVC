@@ -27,6 +27,16 @@ namespace PcWebapp.Controllers
         {
             return View();
         }
+        public IActionResult UserIndex()
+        {
+            return View();
+        }
+        public IActionResult AdminIndex()
+        {
+            return View();
+        }
+
+        #region Products
         [HttpGet]
         public IActionResult AddProduct()
         {
@@ -37,13 +47,13 @@ namespace PcWebapp.Controllers
         {
             p.ProductID = Guid.NewGuid().ToString();
             productlogic.AddProduct(p);
-            return View();
+            return RedirectToAction(nameof(ListProducts));
         }
         public IActionResult ListProducts()
         {
             return View(productlogic.GetAllProducts());
         }
-        public IActionResult ProductDataGenerator()
+        public IActionResult ProductDataGenerator() //json-ba kiírás
         {
             StreamWriter sw = new StreamWriter("Saves/products.json");
             foreach (var item in productlogic.GetAllProducts())
@@ -53,20 +63,37 @@ namespace PcWebapp.Controllers
             sw.Close();
             return RedirectToAction(nameof(Index));
         }
-        public IActionResult GenerateData()
+        public IActionResult GenerateData() //json-ból beolvasás
         {
             StreamReader sr = new StreamReader("Saves/products.json");
             string pr = sr.ReadToEnd();
             this.productlogic.AddProduct(JsonConvert.DeserializeObject<Product>(pr));
             return RedirectToAction(nameof(Index));
         }
-        public IActionResult UserIndex()
+        #endregion
+
+        #region Customers
+        [HttpGet]
+        public IActionResult AddCustomer()
         {
             return View();
         }
-        public IActionResult AdminIndex()
+        [HttpPost]
+        public IActionResult AddCustomer(Customer c)
         {
-            return View();
+            c.CustomerID = Guid.NewGuid().ToString();
+            c.RegDate = DateTime.Now;
+            customerlogic.AddCustomer(c);
+            return RedirectToAction(nameof(ListCustomers));
         }
+        public IActionResult ListCustomers()
+        {
+            return View(customerlogic.GetAllCustomers());
+        }
+        #endregion
+
+        #region Orders
+
+        #endregion
     }
 }
