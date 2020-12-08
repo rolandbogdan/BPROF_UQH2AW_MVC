@@ -47,13 +47,13 @@ namespace PcWebapp.Controllers
         {
             p.ProductID = Guid.NewGuid().ToString();
             productlogic.AddProduct(p);
-            return RedirectToAction(nameof(ListProducts));
+            return RedirectToAction(nameof(AdminIndex));
         }
         public IActionResult ListProducts()
         {
             return View(productlogic.GetAllProducts());
         }
-        public IActionResult ProductDataGenerator() //json-ba kiírás
+        public IActionResult ProductJsonWrite() //json-ba kiírás
         {
             StreamWriter sw = new StreamWriter("Saves/products.json");
             foreach (var item in productlogic.GetAllProducts())
@@ -61,13 +61,6 @@ namespace PcWebapp.Controllers
                 sw.Write(JsonConvert.SerializeObject(item));
             }
             sw.Close();
-            return RedirectToAction(nameof(Index));
-        }
-        public IActionResult GenerateData() //json-ból beolvasás
-        {
-            StreamReader sr = new StreamReader("Saves/products.json");
-            string pr = sr.ReadToEnd();
-            this.productlogic.AddProduct(JsonConvert.DeserializeObject<Product>(pr));
             return RedirectToAction(nameof(Index));
         }
         #endregion
@@ -84,16 +77,38 @@ namespace PcWebapp.Controllers
             c.CustomerID = Guid.NewGuid().ToString();
             c.RegDate = DateTime.Now;
             customerlogic.AddCustomer(c);
-            return RedirectToAction(nameof(ListCustomers));
+            return RedirectToAction(nameof(AdminIndex));
         }
         public IActionResult ListCustomers()
         {
             return View(customerlogic.GetAllCustomers());
+        }
+        public IActionResult CustomerJsonWrite() //json-ba kiírás
+        {
+            StreamWriter sw = new StreamWriter("Saves/customers.json");
+            foreach (var item in customerlogic.GetAllCustomers())
+            {
+                sw.Write(JsonConvert.SerializeObject(item));
+            }
+            sw.Close();
+            return RedirectToAction(nameof(Index));
         }
         #endregion
 
         #region Orders
 
         #endregion
+        public IActionResult JsonRead() //json-ból beolvasás
+        {
+            StreamReader sr = new StreamReader("Saves/products.json");
+            string pr = sr.ReadToEnd();
+            this.productlogic.AddProduct(JsonConvert.DeserializeObject<Product>(pr));
+            sr.Close();
+
+            sr = new StreamReader("Saves/customers.json");
+            string cmr = sr.ReadToEnd();
+            this.customerlogic.AddCustomer(JsonConvert.DeserializeObject<Customer>(cmr));
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

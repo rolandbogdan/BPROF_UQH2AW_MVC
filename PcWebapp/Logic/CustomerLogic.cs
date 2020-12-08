@@ -20,7 +20,8 @@ namespace Logic
         }
         public void AddCustomer(Customer customer)
         {
-            this.customerRepo.Add(customer);
+            if (!Contains(customer.CustomerID))
+                this.customerRepo.Add(customer);
         }
         public void DeleteCustomer(string customerID)
         {
@@ -37,6 +38,13 @@ namespace Logic
         public void UpdateCustomer(string oldcustomerID, Customer newCustomer)
         {
             customerRepo.Update(oldcustomerID, newCustomer);
+        }
+        public bool Contains(string customerID)
+        {
+            foreach (var item in this.GetAllCustomers())
+                if (item.CustomerID == customerID)
+                    return true;
+            return false;
         }
     }
 }

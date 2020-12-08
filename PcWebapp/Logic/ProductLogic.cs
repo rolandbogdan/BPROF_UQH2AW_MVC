@@ -23,7 +23,8 @@ namespace Logic
 
         public void AddProduct(Product product)
         {
-            this.productRepo.Add(product);
+            if (!Contains(product.ProductID))
+                this.productRepo.Add(product);
         }
         public void DeleteProduct(string productID)
         {
@@ -41,6 +42,13 @@ namespace Logic
         public void UpdateProduct(string oldProductID, Product newProduct)
         {
             productRepo.Update(oldProductID, newProduct);
+        }
+        public bool Contains(string productID)
+        {
+            foreach (var item in this.GetAllProducts())
+                if (item.ProductID == productID)
+                    return true;
+            return false;
         }
     }
 }
