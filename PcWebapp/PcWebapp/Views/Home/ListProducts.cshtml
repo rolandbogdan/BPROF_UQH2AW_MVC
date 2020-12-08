@@ -24,15 +24,15 @@
                 <h1>Termékek listája:</h1><br />
                 @foreach (var item in Model)
                 {
-                <div>
-                    Termék neve: @item.ProductName <br />
-                    Kategória: @item.Category.ToString() <br />
-                    Gyártó: @item.Manufacturer <br />
-                    Ár: @item.Price <br />
-                    Leírás: @item.Description <br />
-                </div>
+                    <div>
+                        Termék neve: @item.ProductName <br />
+                        Kategória: @item.Category.ToString() <br />
+                        Gyártó: @item.Manufacturer <br />
+                        Ár: @item.Price <br />
+                        Leírás: @item.Description <br />
+                    </div>
+                    <br /> <br />
                 }
-                <br /> <br />
                 <form action="/Home/ProductDataGenerator" method="post">
                     <input type="submit" value="Export to JSON" />
                 </form>

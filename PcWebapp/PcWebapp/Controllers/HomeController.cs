@@ -37,7 +37,7 @@ namespace PcWebapp.Controllers
         {
             p.ProductID = Guid.NewGuid().ToString();
             productlogic.AddProduct(p);
-            return RedirectToAction(nameof(Index));
+            return View();
         }
         public IActionResult ListProducts()
         {
@@ -45,11 +45,12 @@ namespace PcWebapp.Controllers
         }
         public IActionResult ProductDataGenerator()
         {
-            StreamWriter sw = new StreamWriter("products.json");
+            StreamWriter sw = new StreamWriter("Saves/products.json");
             foreach (var item in productlogic.GetAllProducts())
             {
                 sw.Write(JsonConvert.SerializeObject(item));
             }
+            sw.Close();
             return RedirectToAction(nameof(Index));
         }
         public IActionResult DataGenerator()
