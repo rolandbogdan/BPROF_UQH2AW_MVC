@@ -53,9 +53,12 @@ namespace PcWebapp.Controllers
             sw.Close();
             return RedirectToAction(nameof(Index));
         }
-        public IActionResult DataGenerator()
+        public IActionResult GenerateData()
         {
-            return View();
+            StreamReader sr = new StreamReader("Saves/products.json");
+            string pr = sr.ReadToEnd();
+            this.productlogic.AddProduct(JsonConvert.DeserializeObject<Product>(pr));
+            return RedirectToAction(nameof(Index));
         }
     }
 }
