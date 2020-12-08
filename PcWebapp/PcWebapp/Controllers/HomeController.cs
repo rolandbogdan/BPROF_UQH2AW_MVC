@@ -37,5 +37,9 @@ namespace PcWebapp.Controllers
             productlogic.AddProduct(p);
             return RedirectToAction(nameof(Index));
         }
+        public IActionResult ListProducts()
+        {
+            return View(productlogic.GetAllProducts());
+        }
     }
 }

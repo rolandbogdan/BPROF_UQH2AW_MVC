@@ -1,5 +1,39 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model IQueryable<Models.Product>
+    <!doctype html>
+    <html>
+    <head>
+        <meta charset="utf-8">
+        <title>Generic PC store</title>
+        <link rel="stylesheet" href="~/main.css" />
+    </head>
+    <body>
+        <div class="container">
+            <header>
+                <a href="/Home/Index">
+                    <h4 class="mainMenuButton">Főmenü</h4>
+                </a>
+                <nav>
+                    <ul>
+                        <li><a href="/Home/AddProduct">Termék hozzáadása</a></li>
+                        <li><a href="/Home/ListProducts">Termékek listázása</a></li>
+                        <li><a href="#Gomb3">Gomb3</a></li>
+                    </ul>
+                </nav>
+            </header>
+            <div class="mainText">
+                <h1>Termékek listája:</h1><br />
+                @foreach (var item in Model)
+                {
+                <div>
+                    Termék neve: @item.ProductName <br />
+                    Kategória: @item.Category.ToString() <br />
+                    Gyártó: @item.Manufacturer <br />
+                    Ár: @item.Price <br />
+                    Leírás: @item.Description <br />
+                </div>
+                }
+            <br /> <br />
+            </div>
+        </div>
+    </body>
+</html>
