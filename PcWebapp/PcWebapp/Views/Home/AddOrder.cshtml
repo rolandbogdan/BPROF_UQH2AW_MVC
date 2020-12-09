@@ -1,0 +1,46 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Add item to store</title>
+    <link rel="stylesheet" href="~/main.css" />
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="/Home/Index">
+                <h4 class="mainMenuButton">Főmenü</h4>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="/Home/AdminIndex">Admin mód</a></li>
+                    <li><a href="/Home/UserIndex">User mód</a></li>
+                    <li><a href="/Home/JsonRead">Minta adatok betöltése</a></li>
+                </ul>
+            </nav>
+        </header>
+        <div class="mainText">
+            <h1>Új rendelés hozzáadása</h1>
+            <form action="/Home/AddOrder" method="post">
+                Vásárló ID-ja: <br />
+                <input type="text" name="cid" value="" /> <br />
+                Termék ID-ja: <br />
+                <input type="text" name="pid" value="" /> <br />
+                Mennyiség: <br />
+                <input type="number" name="OrderedQuantity" value="" /> <br />
+                Megjegyzés: <br />
+                <input type="text" name="Comment" value="" /> <br />
+                Státusz: <br />
+                <select name="OrderStatus">
+                    <option value="pending">Feldolgozás alatt</option>
+                    <option value="awaiting_shipment">Kiszállításra vár</option>
+                    <option value="shipped">Kiszállítva</option>
+                    <option value="cancelled">Megszakítva</option>
+                    <option value="disputed">Vásárló által átvéve</option>
+                </select> <br />
+                <input type="submit" value="Új rendelés hozzáadása" />
+            </form>
+        </div>
+    </div>
+</body>
+</html>

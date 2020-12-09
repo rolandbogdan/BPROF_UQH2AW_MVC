@@ -96,7 +96,21 @@ namespace PcWebapp.Controllers
         #endregion
 
         #region Orders
-
+        [HttpGet]
+        public IActionResult AddOrder()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult AddOrder(Order o, string cid, string pid)
+        {
+            o.OrderID = Guid.NewGuid().ToString();
+            o.Customers.Add(customerlogic.GetCustomer(cid));
+            customerlogic.GetCustomer(cid).Products.Add(productlogic.GetProduct(pid));
+            o.OrderDate = DateTime.Now;
+            orderlogic.AddOrder(o);
+            return RedirectToAction(nameof(AdminIndex));
+        }
         #endregion
         public IActionResult JsonRead() //json-ból beolvasás
         {
