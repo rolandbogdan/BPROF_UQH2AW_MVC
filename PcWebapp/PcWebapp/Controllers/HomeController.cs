@@ -55,7 +55,7 @@ namespace PcWebapp.Controllers
         }
         public IActionResult ProductJsonWrite() //json-ba kiírás
         {
-            StreamWriter sw = new StreamWriter("Saves/products.json");
+            StreamWriter sw = new StreamWriter("Saves/products.json", true);
             foreach (var item in productlogic.GetAllProducts())
             {
                 sw.Write(JsonConvert.SerializeObject(item));
@@ -85,7 +85,7 @@ namespace PcWebapp.Controllers
         }
         public IActionResult CustomerJsonWrite() //json-ba kiírás
         {
-            StreamWriter sw = new StreamWriter("Saves/customers.json");
+            StreamWriter sw = new StreamWriter("Saves/customers.json",true);
             foreach (var item in customerlogic.GetAllCustomers())
             {
                 sw.Write(JsonConvert.SerializeObject(item));
@@ -111,6 +111,20 @@ namespace PcWebapp.Controllers
             orderlogic.AddOrder(o);
             return RedirectToAction(nameof(AdminIndex));
         }
+        public IActionResult ListOrders()
+        {
+            return View(orderlogic.GetAllOrders());
+        }
+        public IActionResult OrderJsonWrite() //json-ba kiírás
+        {
+            StreamWriter sw = new StreamWriter("Saves/orders.json", true);
+            foreach (var item in orderlogic.GetAllOrders())
+            {
+                sw.Write(JsonConvert.SerializeObject(item));
+            }
+            sw.Close();
+            return RedirectToAction(nameof(Index));
+        }
         #endregion
         public IActionResult JsonRead() //json-ból beolvasás
         {
@@ -122,6 +136,13 @@ namespace PcWebapp.Controllers
             sr = new StreamReader("Saves/customers.json");
             string cmr = sr.ReadToEnd();
             this.customerlogic.AddCustomer(JsonConvert.DeserializeObject<Customer>(cmr));
+            sr.Close();
+
+            sr = new StreamReader("Saves/orders.json");
+            string ord = sr.ReadToEnd();
+            this.orderlogic.AddOrder(JsonConvert.DeserializeObject<Order>(ord));
+            sr.Close();
+
             return RedirectToAction(nameof(Index));
         }
     }
