@@ -63,6 +63,10 @@ namespace PcWebapp.Controllers
             sw.Close();
             return RedirectToAction(nameof(Index));
         }
+        public IActionResult EditProduct()
+        {
+            return View();
+        }
         #endregion
 
         #region Customers
@@ -92,6 +96,10 @@ namespace PcWebapp.Controllers
             }
             sw.Close();
             return RedirectToAction(nameof(Index));
+        }
+        public IActionResult EditCustomer()
+        {
+            return View();
         }
         #endregion
 
@@ -124,6 +132,10 @@ namespace PcWebapp.Controllers
             }
             sw.Close();
             return RedirectToAction(nameof(Index));
+        }
+        public IActionResult EditOrder()
+        {
+            return View();
         }
         #endregion
         public IActionResult JsonRead() //json-ból beolvasás
