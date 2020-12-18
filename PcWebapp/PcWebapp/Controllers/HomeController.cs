@@ -359,5 +359,10 @@ namespace PcWebapp.Controllers
         {
             return View(nameof(ListProducts), statslogic.LongestUserOrders().AsQueryable());
         }
+        [HttpPost]
+        public IActionResult CustomersOfManufacturer(string manufacturer)
+        {
+            return View(nameof(ListCustomers), statslogic.CustomersOfManufacturer(manufacturer).AsQueryable());
+        }
     }
 }

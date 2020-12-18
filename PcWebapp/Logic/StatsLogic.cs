@@ -39,5 +39,14 @@ namespace Logic
                        select customer).FirstOrDefault().Products;
             return luo;
         }
+        public IEnumerable<Customer> CustomersOfManufacturer(string mf)
+        {
+            var com = from product in productrepo.Read().ToList()
+                      join customer in customerrepo.Read().ToList()
+                      on product.CustomerID equals customer.CustomerID
+                      where product.Manufacturer == mf
+                      select customer;
+            return com;
+        }
     }
 }

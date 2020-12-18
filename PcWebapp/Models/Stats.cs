@@ -15,8 +15,5 @@ namespace Models
 
         //xy gyártó termékeinek rendelői
         public IEnumerable<Customer> CustomersOfManufacturer { get; set; }
-
-
-
     }
 }
