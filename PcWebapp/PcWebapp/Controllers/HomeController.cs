@@ -18,6 +18,7 @@ namespace PcWebapp.Controllers
         ProductLogic productlogic;
         OrderLogic orderlogic;
         StatsLogic statslogic;
+        public bool adminMode = false;
 
         public HomeController(CustomerLogic customerlogic, ProductLogic productlogic, OrderLogic orderlogic, StatsLogic statsLogic)
         {
@@ -29,14 +30,17 @@ namespace PcWebapp.Controllers
 
         public IActionResult Index()
         {
+            adminMode = false;
             return View();
         }
         public IActionResult UserIndex()
         {
+            adminMode = false;
             return View();
         }
         public IActionResult AdminIndex()
         {
+            adminMode = true;
             return View();
         }
 
@@ -116,12 +120,11 @@ namespace PcWebapp.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult AddOrder(Order o, string cid, string pid)
+        public IActionResult AddOrder(Order o)
         {
             o.OrderID = Guid.NewGuid().ToString();
-            o.Customers.Add(customerlogic.GetCustomer(cid));
-            customerlogic.GetCustomer(cid).Products.Add(productlogic.GetProduct(pid));
-            o.OrderDate = DateTime.Now;
+            //customerlogic.GetCustomer(cid).Order = o;
+            //productlogic.GetProduct(pid).CustomerID = cid;
             orderlogic.AddOrder(o);
             return RedirectToAction(nameof(AdminIndex));
         }

@@ -30,12 +30,13 @@
             <h2>Rendelések kezelése:</h2>
             <a href="/Home/AddOrder">Új rendelés</a> <br />
             <a href="/Home/ListOrders">Rendelések listája</a> <br />
-            <h2>Non CRUD</h2>
+            <h2>Non-CRUD</h2>
             <a href="/Home/ExpensiveOrders">100.000-nél drágább rendelések</a> <br />
             <a href="/Home/LongestCustomerProducts">Legrégebbi vásárló termékei</a> <br />
             <form action="/Home/CustomersOfManufacturer" method="post">
+                <p>Adott márka vásárlóinak keresése:</p>
                 <input type="text" name="manufacturer" value="" />
-                <input type="submit" name="com" value="Vásárlók keresése" />
+                <input type="submit" name="com" value="Keresés" />
             </form>
 
         </div>
