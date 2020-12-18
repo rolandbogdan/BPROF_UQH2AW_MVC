@@ -7,6 +7,7 @@ using Repository;
 using Models;
 using Logic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace Test
 {
@@ -89,6 +90,7 @@ namespace Test
                 new Product() {ProductID = "PID2", Price = 20000, CustomerID = "CID2"},
                 new Product() {ProductID = "PID3", Price = 45000, CustomerID = "CID3"}
             };
+
             List<Order> expected = new List<Order>();
             expected.Add(orders[0]);
 
@@ -109,12 +111,71 @@ namespace Test
         [Test]
         public void LongestUserOrdersTest()
         {
+            List<Customer> customers = new List<Customer>()
+            {
+                new Customer() {CustomerID = "CID1", RegDate=new DateTime(2015, 1, 1),},
+                new Customer() {CustomerID = "CID2", RegDate=new DateTime(2010, 1, 1)},
+                new Customer() {CustomerID = "CID3", RegDate=new DateTime(2020, 1, 1)}
+            };
+            List<Product> products = new List<Product>()
+            {
+                new Product() {ProductID="PID1",CustomerID="CID1"},
+                new Product() {ProductID="PID2",CustomerID="CID2"},
+                new Product() {ProductID="PID3",CustomerID="CID3"}
+            };
+            customers[0].Products = new List<Product>();
+            customers[0].Products.Add(products[0]);
+            customers[1].Products = new List<Product>();
+            customers[1].Products.Add(products[1]);
+            customers[2].Products = new List<Product>();
+            customers[2].Products.Add(products[2]);
 
+            List<Product> expected = new List<Product>();
+            expected.Add(products[1]);
+
+            customerrepo.Setup(x => x.Read()).Returns(customers.AsQueryable());
+            productrepo.Setup(x => x.Read()).Returns(products.AsQueryable());
+
+            StatsLogic logic = new StatsLogic(orderrepo.Object, customerrepo.Object, productrepo.Object);
+
+            var result = logic.LongestUserOrders();
+            
+            Assert.That(result, Is.EquivalentTo(expected));
+            customerrepo.Verify(x => x.Read(), Times.Once);
+            productrepo.Verify(x => x.Read(), Times.Once);
         }
         [Test]
         public void CustomersOfManufacturerTest()
         {
+            List<Customer> customers = new List<Customer>()
+            {
+                new Customer() {CustomerID = "CID1", Products = new List<Product>()},
+                new Customer() {CustomerID = "CID2", Products = new List<Product>()},
+                new Customer() {CustomerID = "CID3", Products = new List<Product>()}
+            };
+            List<Product> products = new List<Product>()
+            {
+                new Product() {ProductID="PID1",CustomerID="CID1",Manufacturer="Test1"},
+                new Product() {ProductID="PID2",CustomerID="CID2",Manufacturer="Test2"},
+                new Product() {ProductID="PID3",CustomerID="CID3",Manufacturer="Test3"}
+            };
+            customers[0].Products.Add(products[0]);
+            customers[1].Products.Add(products[1]);
+            customers[2].Products.Add(products[2]);
 
+            List<Customer> expected = new List<Customer>();
+            expected.Add(customers[2]);
+
+            customerrepo.Setup(x => x.Read()).Returns(customers.AsQueryable());
+            productrepo.Setup(x => x.Read()).Returns(products.AsQueryable());
+
+            StatsLogic logic = new StatsLogic(orderrepo.Object, customerrepo.Object, productrepo.Object);
+
+            var result = logic.CustomersOfManufacturer("Test3");
+
+            Assert.That(result, Is.EquivalentTo(expected));
+            customerrepo.Verify(x => x.Read(), Times.Once);
+            productrepo.Verify(x => x.Read(), Times.Once);
         }
     }
 }

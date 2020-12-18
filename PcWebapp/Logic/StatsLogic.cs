@@ -35,7 +35,7 @@ namespace Logic
             var luo = (from product in productrepo.Read().ToList()
                        join customer in customerrepo.Read().ToList()
                        on product.CustomerID equals customer.CustomerID
-                       orderby customer.RegDate descending
+                       orderby customer.RegDate ascending
                        select customer).FirstOrDefault().Products;
             return luo;
         }
