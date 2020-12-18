@@ -7,6 +7,7 @@ using Logic;
 using Models;
 using Newtonsoft.Json;
 using System.IO;
+using Repository;
 
 namespace PcWebapp.Controllers
 {
@@ -53,17 +54,11 @@ namespace PcWebapp.Controllers
         {
             return View(productlogic.GetAllProducts());
         }
-        public IActionResult ProductJsonWrite() //json-ba kiírás
-        {
-            StreamWriter sw = new StreamWriter("Saves/products.json", true);
-            foreach (var item in productlogic.GetAllProducts())
-            {
-                sw.Write(JsonConvert.SerializeObject(item));
-            }
-            sw.Close();
-            return RedirectToAction(nameof(Index));
-        }
         public IActionResult EditProduct()
+        {
+            return View();
+        }
+        public IActionResult DeleteProduct()
         {
             return View();
         }
@@ -86,16 +81,6 @@ namespace PcWebapp.Controllers
         public IActionResult ListCustomers()
         {
             return View(customerlogic.GetAllCustomers());
-        }
-        public IActionResult CustomerJsonWrite() //json-ba kiírás
-        {
-            StreamWriter sw = new StreamWriter("Saves/customers.json",true);
-            foreach (var item in customerlogic.GetAllCustomers())
-            {
-                sw.Write(JsonConvert.SerializeObject(item));
-            }
-            sw.Close();
-            return RedirectToAction(nameof(Index));
         }
         public IActionResult EditCustomer()
         {
@@ -123,38 +108,13 @@ namespace PcWebapp.Controllers
         {
             return View(orderlogic.GetAllOrders());
         }
-        public IActionResult OrderJsonWrite() //json-ba kiírás
-        {
-            StreamWriter sw = new StreamWriter("Saves/orders.json", true);
-            foreach (var item in orderlogic.GetAllOrders())
-            {
-                sw.Write(JsonConvert.SerializeObject(item));
-            }
-            sw.Close();
-            return RedirectToAction(nameof(Index));
-        }
         public IActionResult EditOrder()
         {
             return View();
         }
         #endregion
-        public IActionResult JsonRead() //json-ból beolvasás
+        public IActionResult GenerateData() //json-ból beolvasás
         {
-            StreamReader sr = new StreamReader("Saves/products.json");
-            string pr = sr.ReadToEnd();
-            this.productlogic.AddProduct(JsonConvert.DeserializeObject<Product>(pr));
-            sr.Close();
-
-            sr = new StreamReader("Saves/customers.json");
-            string cmr = sr.ReadToEnd();
-            this.customerlogic.AddCustomer(JsonConvert.DeserializeObject<Customer>(cmr));
-            sr.Close();
-
-            sr = new StreamReader("Saves/orders.json");
-            string ord = sr.ReadToEnd();
-            this.orderlogic.AddOrder(JsonConvert.DeserializeObject<Order>(ord));
-            sr.Close();
-
             return RedirectToAction(nameof(Index));
         }
     }

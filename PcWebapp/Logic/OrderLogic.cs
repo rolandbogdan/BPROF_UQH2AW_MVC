@@ -20,7 +20,8 @@ namespace Logic
         }
         public void AddOrder(Order order)
         {
-            this.orderRepo.Add(order);
+            if (!Contains(order.OrderID))
+                this.orderRepo.Add(order);
         }
         public void DeleteOrder(string orderID)
         {
@@ -37,6 +38,13 @@ namespace Logic
         public void UpdateOrder(string oldorderID, Order newOrder)
         {
             orderRepo.Update(oldorderID, newOrder);
+        }
+        public bool Contains(string orderID)
+        {
+            foreach (var item in this.GetAllOrders())
+                if (item.OrderID == orderID)
+                    return true;
+            return false;
         }
     }
 }

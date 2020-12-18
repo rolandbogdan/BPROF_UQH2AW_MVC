@@ -22,6 +22,7 @@ namespace Logic
         {
             if (!Contains(customer.CustomerID))
                 this.customerRepo.Add(customer);
+
         }
         public void DeleteCustomer(string customerID)
         {
