@@ -17,12 +17,14 @@ namespace PcWebapp.Controllers
         CustomerLogic customerlogic;
         ProductLogic productlogic;
         OrderLogic orderlogic;
+        StatsLogic statslogic;
 
-        public HomeController(CustomerLogic customerlogic, ProductLogic productlogic, OrderLogic orderlogic)
+        public HomeController(CustomerLogic customerlogic, ProductLogic productlogic, OrderLogic orderlogic, StatsLogic statsLogic)
         {
             this.customerlogic = customerlogic;
             this.productlogic = productlogic;
             this.orderlogic = orderlogic;
+            this.statslogic = statsLogic;
         }
 
         public IActionResult Index()
@@ -348,6 +350,10 @@ namespace PcWebapp.Controllers
             #endregion
 
             return RedirectToAction(nameof(Index));
+        }
+        public IActionResult ExpensiveOrders()
+        {
+            return View(nameof(ListOrders),statslogic.ExpensiveOrders().AsQueryable());
         }
     }
 }

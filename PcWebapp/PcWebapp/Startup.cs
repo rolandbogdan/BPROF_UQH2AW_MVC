@@ -25,6 +25,7 @@ namespace PcWebapp
             services.AddTransient<ProductLogic, ProductLogic>();
             services.AddTransient<CustomerLogic, CustomerLogic>();
             services.AddTransient<OrderLogic, OrderLogic>();
+            services.AddTransient<StatsLogic, StatsLogic>();
             services.AddTransient<IRepository<Product>, ProductRepo>();
             services.AddTransient<IRepository<Customer>, CustomerRepo>();
             services.AddTransient<IRepository<Order>, OrderRepo>();
