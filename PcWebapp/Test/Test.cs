@@ -18,8 +18,6 @@ namespace Test
         public Mock<IRepository<Customer>> customerrepo = new Mock<IRepository<Customer>>();
         public Mock<IRepository<Product>> productrepo = new Mock<IRepository<Product>>();
 
-        /*  Valamiért ha run all-al tesztelem elsőre, a non crud-ok hibát dobnak,
-            de egyesével működnek szépen.*/
         [Test]
         public void AddTest()
         {
