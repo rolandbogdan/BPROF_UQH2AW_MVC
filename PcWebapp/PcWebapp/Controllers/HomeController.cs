@@ -66,9 +66,10 @@ namespace PcWebapp.Controllers
             productlogic.UpdateProduct(p.ProductID, p);
             return RedirectToAction(nameof(ListProducts));
         }
-        public IActionResult DeleteProduct()
+        public IActionResult DeleteProduct(string id)
         {
-            return View();
+            productlogic.DeleteProduct(id);
+            return RedirectToAction(nameof(ListProducts));
         }
         #endregion
 
@@ -99,6 +100,11 @@ namespace PcWebapp.Controllers
         public IActionResult EditCustomer(Customer c)
         {
             customerlogic.UpdateCustomer(c.CustomerID, c);
+            return RedirectToAction(nameof(ListCustomers));
+        }
+        public IActionResult DeleteCustomer(string id)
+        {
+            customerlogic.DeleteCustomer(id);
             return RedirectToAction(nameof(ListCustomers));
         }
         #endregion
@@ -132,6 +138,11 @@ namespace PcWebapp.Controllers
         public IActionResult EditOrder(Order o)
         {
             orderlogic.UpdateOrder(o.OrderID, o);
+            return RedirectToAction(nameof(ListOrders));
+        }
+        public IActionResult DeleteOrder(string id)
+        {
+            orderlogic.DeleteOrder(id);
             return RedirectToAction(nameof(ListOrders));
         }
         #endregion

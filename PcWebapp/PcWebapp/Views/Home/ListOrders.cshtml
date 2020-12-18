@@ -25,7 +25,7 @@
             @foreach (var item in Model)
             {
                 <div>
-                    RendelésID-je: @item.OrderID <br />
+                    Rendelés ID-je: @item.OrderID <br />
                     Rendelt mennyiség: @item.OrderedQuantity <br />
                     Rendelés ideje: @item.OrderDate.ToString() <br />
                     Megjegyzés: @item.Comment <br />
@@ -38,7 +38,7 @@
                         }
                     }
                     <a href="/Home/EditOrder?id=@item.OrderID">Szerkesztés&nbsp</a>
-                    <a href="#">Törlés</a>
+                    <a href="/Home/DeleteOrder?id=@item.OrderID">Törlés</a>
                 </div>
                 <br /> <br />
             }
