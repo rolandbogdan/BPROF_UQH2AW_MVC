@@ -67,5 +67,54 @@ namespace Test
             logic.UpdateProduct("ID1", new Product() { ProductID = "ID1" });
             productrepo.Verify(x => x.Update(It.IsAny<string>(), It.IsAny<Product>()), Times.Once);
         }
+
+        [Test]
+        public void ExpensiveOrdersTest()
+        {
+            List<Order> orders = new List<Order>()
+            {
+                new Order() {OrderID = "OID1", OrderedQuantity=1},
+                new Order() {OrderID = "OID2", OrderedQuantity=3},
+                new Order() {OrderID = "OID3", OrderedQuantity=2}
+            };
+            List<Customer> customers = new List<Customer>()
+            {
+                new Customer() {CustomerID = "CID1", Order = orders[0]},
+                new Customer() {CustomerID = "CID2", Order = orders[1]},
+                new Customer() {CustomerID = "CID3", Order = orders[2]}
+            };
+            List<Product> products = new List<Product>()
+            {
+                new Product() {ProductID = "PID1", Price = 110000, CustomerID = "CID1"},
+                new Product() {ProductID = "PID2", Price = 20000, CustomerID = "CID2"},
+                new Product() {ProductID = "PID3", Price = 45000, CustomerID = "CID3"}
+            };
+            List<Order> expected = new List<Order>();
+            expected.Add(orders[0]);
+
+            orderrepo.Setup(x => x.Read()).Returns(orders.AsQueryable());
+            customerrepo.Setup(x => x.Read()).Returns(customers.AsQueryable());
+            productrepo.Setup(x => x.Read()).Returns(products.AsQueryable());
+
+            StatsLogic logic = new StatsLogic(orderrepo.Object, customerrepo.Object, productrepo.Object);
+
+            var result = logic.ExpensiveOrders();
+
+            Assert.That(result, Is.EquivalentTo(expected));
+            orderrepo.Verify(x => x.Read(), Times.Once);
+            customerrepo.Verify(x => x.Read(), Times.Once);
+            productrepo.Verify(x => x.Read(), Times.Once);
+
+        }
+        [Test]
+        public void LongestUserOrdersTest()
+        {
+
+        }
+        [Test]
+        public void CustomersOfManufacturerTest()
+        {
+
+        }
     }
 }
