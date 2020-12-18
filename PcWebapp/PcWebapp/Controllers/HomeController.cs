@@ -115,6 +115,23 @@ namespace PcWebapp.Controllers
         #endregion
         public IActionResult GenerateData() //json-ból beolvasás
         {
+            #region Products
+            Product ryzen5600 = new Product()
+            {
+                ProductID = Guid.NewGuid().ToString(),
+                ProductName = "Ryzen 5 5600x",
+                Category = ProductCategory.CPU,
+                Manufacturer = "AMD",
+                Price = 120000,
+                InStock = true,
+                Quantity = 10,
+                Description = "Új amd ryzen processzor"
+            };
+            productlogic.AddProduct(ryzen5600);
+
+            #endregion
+
+
             return RedirectToAction(nameof(Index));
         }
     }

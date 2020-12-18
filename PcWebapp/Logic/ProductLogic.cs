@@ -20,7 +20,6 @@ namespace Logic
             this.customerRepo = customerrepo;
             this.orderRepo = orderrepo;
         }
-
         public void AddProduct(Product product)
         {
             if (!Contains(product.ProductID))
@@ -34,7 +33,6 @@ namespace Logic
         {
             return productRepo.Read();
         }
-
         public Product GetProduct(string productID)
         {
             return productRepo.Read(productID);
