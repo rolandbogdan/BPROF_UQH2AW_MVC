@@ -29,7 +29,7 @@ namespace Logic
                      select order;
             return eo;
         }
-
+        
         public IEnumerable<Product> LongestUserOrders()
         {
             var luo = (from product in productrepo.Read().ToList()

@@ -74,7 +74,6 @@ namespace PcWebapp.Controllers
             return RedirectToAction(nameof(ListProducts));
         }
         #endregion
-
         #region Customers
         [HttpGet]
         public IActionResult AddCustomer()
@@ -110,7 +109,6 @@ namespace PcWebapp.Controllers
             return RedirectToAction(nameof(ListCustomers));
         }
         #endregion
-
         #region Orders
         [HttpGet]
         public IActionResult AddOrder()
@@ -148,6 +146,22 @@ namespace PcWebapp.Controllers
             return RedirectToAction(nameof(ListOrders));
         }
         #endregion
+
+        #region Non crud linq
+        public IActionResult ExpensiveOrders()
+        {
+            return View(nameof(ListOrders), statslogic.ExpensiveOrders().AsQueryable());
+        }
+        public IActionResult LongestCustomerProducts()
+        {
+            return View(nameof(ListProducts), statslogic.LongestUserOrders().AsQueryable());
+        }
+        [HttpPost]
+        public IActionResult CustomersOfManufacturer(string manufacturer)
+        {
+            return View(nameof(ListCustomers), statslogic.CustomersOfManufacturer(manufacturer).AsQueryable());
+        }
+        #endregion
         public IActionResult GenerateData()
         {
             #region Orders
@@ -178,7 +192,7 @@ namespace PcWebapp.Controllers
             {
                 OrderID = Guid.NewGuid().ToString(),
                 OrderedQuantity = 1,
-                OrderDate = new DateTime(2020,12,17),
+                OrderDate = new DateTime(2020, 12, 17),
                 Comment = "A leghelyesebb futár jöjjön",
                 OrderStatus = OrderStatus.awaiting_shipment
             };
@@ -350,19 +364,6 @@ namespace PcWebapp.Controllers
             #endregion
 
             return RedirectToAction(nameof(Index));
-        }
-        public IActionResult ExpensiveOrders()
-        {
-            return View(nameof(ListOrders),statslogic.ExpensiveOrders().AsQueryable());
-        }
-        public IActionResult LongestCustomerProducts()
-        {
-            return View(nameof(ListProducts), statslogic.LongestUserOrders().AsQueryable());
-        }
-        [HttpPost]
-        public IActionResult CustomersOfManufacturer(string manufacturer)
-        {
-            return View(nameof(ListCustomers), statslogic.CustomersOfManufacturer(manufacturer).AsQueryable());
         }
     }
 }
