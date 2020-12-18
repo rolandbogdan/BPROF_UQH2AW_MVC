@@ -48,12 +48,6 @@ namespace Repository
             oldOrder.OrderDate = newOrder.OrderDate;
             oldOrder.Comment = newOrder.Comment;
             oldOrder.OrderStatus = newOrder.OrderStatus;
-
-            oldOrder.Customers.Clear();
-            foreach (var item in newOrder.Customers)
-            {
-                oldOrder.Customers.Add(item);
-            }
             Save();
         }
     }

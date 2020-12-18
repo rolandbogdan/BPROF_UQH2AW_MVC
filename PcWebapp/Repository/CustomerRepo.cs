@@ -52,12 +52,7 @@ namespace Repository
             oldCustomer.RegDate = newCustomer.RegDate;
             oldCustomer.Address = newCustomer.Address;
             oldCustomer.Password = newCustomer.Password;
-
-            oldCustomer.Products.Clear();
-            foreach (var item in newCustomer.Products)
-            {
-                oldCustomer.Products.Add(item);
-            }
+            oldCustomer.Order = newCustomer.Order;
             Save();
         }
     }

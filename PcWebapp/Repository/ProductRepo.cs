@@ -54,6 +54,7 @@ namespace Repository
             oldProduct.InStock = newProduct.InStock;
             oldProduct.Quantity = newProduct.Quantity;
             oldProduct.Description = newProduct.Description;
+            oldProduct.CustomerID = newProduct.CustomerID;
             Save();
         }
     }

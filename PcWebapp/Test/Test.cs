@@ -11,6 +11,9 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace Test
 {
+    /*  Valamiért ha run all-al tesztelem elsőre, a non crud-ok hibát dobnak,
+        de egyesével működnek szépen.*/
+
     [TestFixture]
     class Test
     {

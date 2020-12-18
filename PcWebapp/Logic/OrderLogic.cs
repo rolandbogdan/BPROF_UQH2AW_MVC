@@ -26,6 +26,7 @@ namespace Logic
         public void DeleteOrder(string orderID)
         {
             this.orderRepo.Delete(orderID);
+            this.orderRepo.Save();
         }
         public IQueryable<Order> GetAllOrders()
         {
