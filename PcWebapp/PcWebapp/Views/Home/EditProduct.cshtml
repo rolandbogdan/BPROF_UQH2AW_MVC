@@ -1,4 +1,5 @@
-﻿<!doctype html>
+﻿@model Models.Product
+<!doctype html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -21,7 +22,33 @@
         </header>
         <div class="mainText">
             <h1>Termékek szerkesztése</h1>
-            <p>TODO</p>
+            <form action="/Home/EditProduct" method="post">
+                <input type="hidden" name="ProductID" value="@Model.ProductID" />
+                Termék neve: <br />
+                <input type="text" name="ProductName" value="@Model.ProductName" /> <br />
+                Kategória: <br />
+                <select name="ProductCategory">
+                    <option value="CPU">Processzor</option>
+                    <option value="Motherboard">Alaplap</option>
+                    <option value="RAM">Memória</option>
+                    <option value="VideoCard">Videókártya</option>
+                    <option value="PowerSupply">Táp</option>
+                    <option value="Storage">Tárhely</option>
+                    <option value="Case">Gépház</option>
+                    <option value="Cooler">Hűtő</option>
+                </select> <br />
+                Gyártó: <br />
+                <input type="text" name="Manufacturer" value="@Model.Manufacturer" /> <br />
+                Ár: <br />
+                <input type="number" name="Price" value="@Model.Price" /> <br />
+                Raktáron: <br />
+                <input type="checkbox" name="InStock" value="" /> <br />
+                Mennyiség: <br />
+                <input type="number" name="Quantity" value="@Model.Quantity" /> <br />
+                Leírás: <br />
+                <input type="text" name="Description" value="@Model.Description" /> <br />
+                <input type="submit" value="Termék szerkesztése" />
+            </form>
         </div>
     </div>
 </body>

@@ -1,4 +1,5 @@
-﻿<!doctype html>
+﻿@model Models.Customer
+<!doctype html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -21,7 +22,20 @@
         </header>
         <div class="mainText">
             <h1>Vásárlók szerkesztése</h1>
-            <p>TODO</p>
+            <form action="/Home/EditCustomer" method="post">
+                <input type="hidden" name="customerID" value="@Model.CustomerID" />
+                Teljes név:: <br />
+                <input type="text" name="CustomerName" value="@Model.CustomerName" /> <br />
+                Email cím: <br />
+                <input type="email" name="EmailAddress" value="@Model.EmailAddress" /> <br />
+                Telefonszám: <br />
+                <input type="text" name="PhoneNumber" value="@Model.PhoneNumber" placeholder="+36 30 123 4567" /> <br />
+                Cím: <br />
+                <input type="text" name="Address" value="@Model.Address" /> <br />
+                Jelszó: <br />
+                <input type="password" name="Password" value="@Model.Password" /> <br />
+                <input type="submit" value="Vásárló szerkesztése" />
+            </form>
         </div>
     </div>
 </body>

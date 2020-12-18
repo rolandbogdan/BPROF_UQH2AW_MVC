@@ -8,6 +8,7 @@ using Models;
 using Newtonsoft.Json;
 using System.IO;
 using Repository;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace PcWebapp.Controllers
 {
@@ -54,9 +55,16 @@ namespace PcWebapp.Controllers
         {
             return View(productlogic.GetAllProducts());
         }
-        public IActionResult EditProduct()
+        [HttpGet]
+        public IActionResult EditProduct(string id)
         {
-            return View();
+            return View(nameof(EditProduct), productlogic.GetProduct(id));
+        }
+        [HttpPost]
+        public IActionResult EditProduct(Product p)
+        {
+            productlogic.UpdateProduct(p.ProductID, p);
+            return RedirectToAction(nameof(ListProducts));
         }
         public IActionResult DeleteProduct()
         {
@@ -82,9 +90,16 @@ namespace PcWebapp.Controllers
         {
             return View(customerlogic.GetAllCustomers());
         }
-        public IActionResult EditCustomer()
+        [HttpGet]
+        public IActionResult EditCustomer(string id)
         {
-            return View();
+            return View(nameof(EditCustomer), customerlogic.GetCustomer(id));
+        }
+        [HttpPost]
+        public IActionResult EditCustomer(Customer c)
+        {
+            customerlogic.UpdateCustomer(c.CustomerID, c);
+            return RedirectToAction(nameof(ListCustomers));
         }
         #endregion
 
@@ -108,9 +123,16 @@ namespace PcWebapp.Controllers
         {
             return View(orderlogic.GetAllOrders());
         }
-        public IActionResult EditOrder()
+        [HttpGet]
+        public IActionResult EditOrder(string id)
         {
-            return View();
+            return View(nameof(EditOrder), orderlogic.GetOrder(id));
+        }
+        [HttpPost]
+        public IActionResult EditOrder(Order o)
+        {
+            orderlogic.UpdateOrder(o.OrderID, o);
+            return RedirectToAction(nameof(ListOrders));
         }
         #endregion
         public IActionResult GenerateData()

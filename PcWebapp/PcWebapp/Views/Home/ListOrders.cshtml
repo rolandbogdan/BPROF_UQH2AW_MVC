@@ -1,4 +1,5 @@
-﻿<!doctype html>
+﻿@model IQueryable<Models.Order>
+<!doctype html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -21,8 +22,26 @@
         </header>
         <div class="mainText">
             <h1>Rendelések listája</h1>
-
-            <p>TODO</p>
+            @foreach (var item in Model)
+            {
+                <div>
+                    RendelésID-je: @item.OrderID <br />
+                    Rendelt mennyiség: @item.OrderedQuantity <br />
+                    Rendelés ideje: @item.OrderDate.ToString() <br />
+                    Megjegyzés: @item.Comment <br />
+                    Rendelők: <br />
+                    @foreach (var c in item.Customers)
+                    {
+                        @if (c!=null)
+                        {
+                            @c.CustomerName; <br />
+                        }
+                    }
+                    <a href="/Home/EditOrder?id=@item.OrderID">Szerkesztés&nbsp</a>
+                    <a href="#">Törlés</a>
+                </div>
+                <br /> <br />
+            }
 
 
         </div>

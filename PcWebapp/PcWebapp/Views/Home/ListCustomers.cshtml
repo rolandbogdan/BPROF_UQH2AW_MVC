@@ -30,7 +30,8 @@
                     Telefonszám: @item.PhoneNumber  <br />
                     Cím: @item.Address <br />
                     Regisztráció dátuma: @item.RegDate.ToString() <br />
-                    RendelésID: @item.OrderID <br />
+                    <a href="/Home/EditCustomer?id=@item.CustomerID">Szerkesztés&nbsp</a>
+                    <a href="#">Törlés</a>
                 </div>
                 <br /> <br />
             }

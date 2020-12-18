@@ -1,4 +1,5 @@
-﻿<!doctype html>
+﻿@model Models.Order
+<!doctype html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -21,7 +22,17 @@
         </header>
         <div class="mainText">
             <h1>Rendelések szerkesztése</h1>
-            <p>TODO</p>
+            <form action="/Home/EditOrder" method="post">
+                Rendelés ID (nem szerkeszthető): <br />
+                <input type="text" name="orderID" value="@Model.OrderID" readonly/> <br />
+                Rendelt mennyiség: <br />
+                <input type="number" name="OrderedQuantity" value="@Model.OrderedQuantity" /> <br />
+                Rendelés ideje (nem szerkeszthető):<br />
+                <input type="datetime" name="OrderDate" value="@Model.OrderDate" readonly/><br />
+                Megjegybzés: <br />
+                <input type="text" name="Comment" value="@Model.Comment" />
+                <input type="submit" value="Rendelés szerkesztése" />
+            </form>
         </div>
     </div>
 </body>

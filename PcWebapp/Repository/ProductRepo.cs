@@ -46,7 +46,7 @@ namespace Repository
         public void Update(string oldProductid, Product newProduct)
         {
             var oldProduct = Read(oldProductid);
-
+            
             oldProduct.ProductName = newProduct.ProductName;
             oldProduct.Category = newProduct.Category;
             oldProduct.Manufacturer = newProduct.Manufacturer;
