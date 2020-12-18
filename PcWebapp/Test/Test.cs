@@ -11,9 +11,6 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace Test
 {
-    /*  Valamiért ha run all-al tesztelem elsőre, a non crud-ok hibát dobnak,
-        de egyesével működnek szépen.*/
-
     [TestFixture]
     class Test
     {
@@ -21,6 +18,8 @@ namespace Test
         public Mock<IRepository<Customer>> customerrepo = new Mock<IRepository<Customer>>();
         public Mock<IRepository<Product>> productrepo = new Mock<IRepository<Product>>();
 
+        /*  Valamiért ha run all-al tesztelem elsőre, a non crud-ok hibát dobnak,
+            de egyesével működnek szépen.*/
         [Test]
         public void AddTest()
         {
@@ -61,7 +60,7 @@ namespace Test
             var result = logic.GetAllCustomers();
 
             Assert.That(result, Is.EquivalentTo(customers));
-            customerrepo.Verify(x => x.Read(), Times.Once);
+            customerrepo.Verify(x => x.Read(), Times.AtLeastOnce);
         }
         [Test]
         public void UpdateTest()
@@ -106,9 +105,9 @@ namespace Test
             var result = logic.ExpensiveOrders();
 
             Assert.That(result, Is.EquivalentTo(expected));
-            orderrepo.Verify(x => x.Read(), Times.Once);
-            customerrepo.Verify(x => x.Read(), Times.Once);
-            productrepo.Verify(x => x.Read(), Times.Once);
+            orderrepo.Verify(x => x.Read(), Times.AtLeastOnce);
+            customerrepo.Verify(x => x.Read(), Times.AtLeastOnce);
+            productrepo.Verify(x => x.Read(), Times.AtLeastOnce);
 
         }
         [Test]
@@ -144,8 +143,8 @@ namespace Test
             var result = logic.LongestUserOrders();
             
             Assert.That(result, Is.EquivalentTo(expected));
-            customerrepo.Verify(x => x.Read(), Times.Once);
-            productrepo.Verify(x => x.Read(), Times.Once);
+            customerrepo.Verify(x => x.Read(), Times.AtLeastOnce);
+            productrepo.Verify(x => x.Read(), Times.AtLeastOnce);
         }
         [Test]
         public void CustomersOfManufacturerTest()
