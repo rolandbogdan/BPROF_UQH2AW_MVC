@@ -39,7 +39,8 @@ namespace Data
                 entity
                 .HasOne(product => product.Customer)
                 .WithMany(customer => customer.Products)
-                .HasForeignKey(product => product.CustomerID);
+                .HasForeignKey(product => product.CustomerID)
+                .OnDelete(DeleteBehavior.Cascade);
             });
 
             modelbuilder.Entity<Customer>(entity =>
@@ -47,7 +48,8 @@ namespace Data
                 entity
                 .HasOne(customer => customer.Order)
                 .WithMany(order => order.Customers)
-                .HasForeignKey(customer => customer.OrderID);
+                .HasForeignKey(customer => customer.OrderID)
+                .OnDelete(DeleteBehavior.Cascade);
             });
         }
     }

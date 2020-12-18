@@ -11,7 +11,7 @@ namespace Models
         public IEnumerable<Order> ExpensiveOrders { get; set; }
 
         //legrégebbi felhasználó rendelései
-        public IEnumerable<Order> LongestUserOrders { get; set; }
+        public IEnumerable<Product> LongestUserOrderedProducts { get; set; }
 
         //xy gyártó termékeinek rendelői
         public IEnumerable<Customer> CustomersOfManufacturer { get; set; }

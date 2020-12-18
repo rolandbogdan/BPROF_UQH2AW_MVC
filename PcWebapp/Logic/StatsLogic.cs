@@ -29,5 +29,15 @@ namespace Logic
                      select order;
             return eo;
         }
+
+        public IEnumerable<Product> LongestUserOrders()
+        {
+            var luo = (from product in productrepo.Read().ToList()
+                       join customer in customerrepo.Read().ToList()
+                       on product.CustomerID equals customer.CustomerID
+                       orderby customer.RegDate descending
+                       select customer).FirstOrDefault().Products;
+            return luo;
+        }
     }
 }
