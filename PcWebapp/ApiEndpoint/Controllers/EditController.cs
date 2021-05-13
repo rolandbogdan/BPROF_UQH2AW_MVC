@@ -1,4 +1,5 @@
 ﻿using Logic;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using System;
@@ -219,6 +220,7 @@ namespace ApiEndpoint.Controllers
 
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete]
         public void DeleteOrderCustomers([FromBody] ViewModel item)
         {
