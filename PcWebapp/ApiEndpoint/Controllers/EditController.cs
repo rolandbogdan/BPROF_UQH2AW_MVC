@@ -212,21 +212,18 @@ namespace ApiEndpoint.Controllers
         }
 
         [HttpPost]
-        public void AddCustomerToOrder([FromBody] ViewModel item)
+        public void CreateFullOrder([FromBody] ViewModel item)
         {
             orderlogic.GetOrder(item.OrderID).Customers.Add(customerlogic.GetCustomer(item.CustomerID));
-        }
-
-        [HttpPost]
-        public void AddProductToCustomer([FromBody] ViewModel item)
-        {
             customerlogic.GetCustomer(item.CustomerID).Products.Add(productlogic.GetProduct(item.ProductID));
+
         }
 
         [HttpDelete]
-        public void RemoveOrder([FromBody] ViewModel item)
+        public void DeleteOrderCustomers([FromBody] ViewModel item)
         {
-
+            customerlogic.GetCustomer(item.CustomerID).Products = new List<Product>();
+            orderlogic.GetOrder(item.OrderID).Customers = new List<Customer>();
         }
     }
 }
