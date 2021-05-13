@@ -27,13 +27,6 @@ namespace ApiEndpoint.Controllers
             return Ok(new { UserName = result });
         }
 
-        [HttpGet]
-        public async Task<IEnumerable<IdentityUser>> GetUsers()
-        {
-            // return _authLogic.GetAllUser();
-            throw new NotImplementedException();
-        }
-
         [HttpPut]
         public async Task<ActionResult> Login([FromBody] LoginViewModel model)
         {
@@ -45,6 +38,12 @@ namespace ApiEndpoint.Controllers
             {
                 return BadRequest(new { Error = ex.Message });
             }
+        }
+
+        [HttpGet]
+        public IEnumerable<IdentityUser> GetAllUsers()
+        {
+            return _authLogic.GetAllUsers();
         }
     }
 }

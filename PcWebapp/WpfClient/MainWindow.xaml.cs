@@ -21,16 +21,38 @@ namespace WpfClient
     /// </summary>
     public partial class MainWindow : Window
     {
+        private string token;
         public MainWindow()
         {
             InitializeComponent();
-            GetCustomerNames();
+            Login();
+        }
+
+        public async Task Login()
+        {
+            PasswordWindow pw = new PasswordWindow();
+            if (pw.ShowDialog() == true)
+            {
+                RestService restService = new RestService("https://localhost:7766/", "/Auth");
+                TokenViewModel tvm = await restService.Put<TokenViewModel, LoginViewModel>(new LoginViewModel()
+                {
+                    Username = pw.UserName,
+                    Password = pw.Password
+                });
+                token = tvm.Token;
+                GetCustomerNames();
+            }
+            else
+            {
+                MessageBox.Show("error");
+                this.Close();
+            }
         }
 
         public async Task GetCustomerNames()
         {
             cbox1.ItemsSource = null;
-            RestService restService = new RestService("https://localhost:7766/", "/Customer");
+            RestService restService = new RestService("https://localhost:7766/", "/Customer", token);
             IEnumerable<Customer> customernames = await restService.Get<Customer>();
 
             cbox1.ItemsSource = customernames;
@@ -54,7 +76,7 @@ namespace WpfClient
                 CustomerID = (cbox1.SelectedItem as Customer).CustomerID
             };
             (cbox1.SelectedItem as Customer).Products.Add(p);
-            RestService restservice = new RestService("https://localhost:7766", "/Product");
+            RestService restservice = new RestService("https://localhost:7766", "/Product", token);
             //restservice.Post<Product>(p);
             //MessageBox.Show("Product added");
         }

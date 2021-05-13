@@ -212,7 +212,7 @@ namespace ApiEndpoint.Controllers
             #endregion
         }
 
-        [HttpPost]
+        [HttpPost] // todo fix probably
         public void CreateFullOrder([FromBody] ViewModel item)
         {
             orderlogic.GetOrder(item.OrderID).Customers.Add(customerlogic.GetCustomer(item.CustomerID));
@@ -220,10 +220,11 @@ namespace ApiEndpoint.Controllers
 
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")] // todo fix
         [HttpDelete]
         public void DeleteOrderCustomers([FromBody] ViewModel item)
         {
+            // todo fix
             customerlogic.GetCustomer(item.CustomerID).Products = new List<Product>();
             orderlogic.GetOrder(item.OrderID).Customers = new List<Customer>();
         }

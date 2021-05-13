@@ -22,6 +22,11 @@ namespace Logic
             _roleManager = roleManager;
         }
 
+        public IEnumerable<IdentityUser> GetAllUsers()
+        {
+            return _userManager.Users;
+        }
+
         public async Task<string> RegisterUser(RegisterViewModel model)
         {
             var user = new IdentityUser
@@ -33,8 +38,7 @@ namespace Logic
             var result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
-                // todo
-                // await _userManager.AddToRoleAsync(user, "Admin");
+                await _userManager.AddToRoleAsync(user, "Customer");
             }
             return user.UserName;
         }
