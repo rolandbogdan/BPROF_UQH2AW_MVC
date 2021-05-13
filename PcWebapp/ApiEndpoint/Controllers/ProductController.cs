@@ -1,4 +1,5 @@
 ﻿using Logic;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using System;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace ApiEndpoint.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("{controller}")]
     public class ProductController : ControllerBase
