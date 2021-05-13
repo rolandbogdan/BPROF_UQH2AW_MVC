@@ -1,173 +1,36 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Logic;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Logic;
-using Models;
-using Newtonsoft.Json;
-using System.IO;
-using Repository;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
-namespace PcWebapp.Controllers
+namespace ApiEndpoint.Controllers
 {
-    public class HomeController : Controller
+    [ApiController]
+    [Route("{controller}")]
+    public class EditController : ControllerBase
     {
-        CustomerLogic customerlogic;
         ProductLogic productlogic;
+        CustomerLogic customerlogic;
         OrderLogic orderlogic;
-        StatsLogic statslogic;
 
-        public HomeController(CustomerLogic customerlogic, ProductLogic productlogic, OrderLogic orderlogic, StatsLogic statsLogic)
+        public EditController(CustomerLogic customerlogic, ProductLogic productlogic, OrderLogic orderlogic)
         {
             this.customerlogic = customerlogic;
             this.productlogic = productlogic;
             this.orderlogic = orderlogic;
-            this.statslogic = statsLogic;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-        public IActionResult UserIndex()
-        {
-            return View();
-        }
-        public IActionResult AdminIndex()
-        {
-            return View();
-        }
-
-        #region Products
         [HttpGet]
-        public IActionResult AddProduct()
-        {
-            return View();
-        }
-        [HttpPost]
-        public IActionResult AddProduct(Product p)
-        {
-            p.ProductID = Guid.NewGuid().ToString();
-            productlogic.AddProduct(p);
-            return RedirectToAction(nameof(AdminIndex));
-        }
-        public IActionResult ListProducts()
-        {
-            return View(productlogic.GetAllProducts());
-        }
-        [HttpGet]
-        public IActionResult EditProduct(string id)
-        {
-            return View(nameof(EditProduct), productlogic.GetProduct(id));
-        }
-        [HttpPost]
-        public IActionResult EditProduct(Product p)
-        {
-            productlogic.UpdateProduct(p.ProductID, p);
-            return RedirectToAction(nameof(ListProducts));
-        }
-        public IActionResult DeleteProduct(string id)
-        {
-            productlogic.DeleteProduct(id);
-            return RedirectToAction(nameof(ListProducts));
-        }
-        #endregion
-        #region Customers
-        [HttpGet]
-        public IActionResult AddCustomer()
-        {
-            return View();
-        }
-        [HttpPost]
-        public IActionResult AddCustomer(Customer c)
-        {
-            c.CustomerID = Guid.NewGuid().ToString();
-            c.RegDate = DateTime.Now;
-            customerlogic.AddCustomer(c);
-            return RedirectToAction(nameof(AdminIndex));
-        }
-        public IActionResult ListCustomers()
-        {
-            return View(customerlogic.GetAllCustomers());
-        }
-        [HttpGet]
-        public IActionResult EditCustomer(string id)
-        {
-            return View(nameof(EditCustomer), customerlogic.GetCustomer(id));
-        }
-        [HttpPost]
-        public IActionResult EditCustomer(Customer c)
-        {
-            customerlogic.UpdateCustomer(c.CustomerID, c);
-            return RedirectToAction(nameof(ListCustomers));
-        }
-        public IActionResult DeleteCustomer(string id)
-        {
-            customerlogic.DeleteCustomer(id);
-            return RedirectToAction(nameof(ListCustomers));
-        }
-        #endregion
-        #region Orders
-        [HttpGet]
-        public IActionResult AddOrder()
-        {
-            return View();
-        }
-        [HttpPost]
-        public IActionResult AddOrder(Order o)
-        {
-            o.OrderID = Guid.NewGuid().ToString();
-            //customerlogic.GetCustomer(cid).Order = o;
-            //productlogic.GetProduct(pid).CustomerID = cid;
-            orderlogic.AddOrder(o);
-            return RedirectToAction(nameof(AdminIndex));
-        }
-        public IActionResult ListOrders()
-        {
-            return View(orderlogic.GetAllOrders());
-        }
-        [HttpGet]
-        public IActionResult EditOrder(string id)
-        {
-            return View(nameof(EditOrder), orderlogic.GetOrder(id));
-        }
-        [HttpPost]
-        public IActionResult EditOrder(Order o)
-        {
-            orderlogic.UpdateOrder(o.OrderID, o);
-            return RedirectToAction(nameof(ListOrders));
-        }
-        public IActionResult DeleteOrder(string id)
-        {
-            orderlogic.DeleteOrder(id);
-            return RedirectToAction(nameof(ListOrders));
-        }
-        #endregion
-
-        #region Non crud linq
-        public IActionResult ExpensiveOrders()
-        {
-            return View(nameof(ListOrders), statslogic.ExpensiveOrders().AsQueryable());
-        }
-        public IActionResult LongestCustomerProducts()
-        {
-            return View(nameof(ListProducts), statslogic.LongestUserOrders().AsQueryable());
-        }
-        [HttpPost]
-        public IActionResult CustomersOfManufacturer(string manufacturer)
-        {
-            return View(nameof(ListCustomers), statslogic.CustomersOfManufacturer(manufacturer).AsQueryable());
-        }
-        #endregion
-        public IActionResult GenerateData()
+        public void FillDb()
         {
             #region Orders
             //Példa Béla rendelt egy ryzen 5600-at
             Order o1 = new Order()
             {
-                OrderID = Guid.NewGuid().ToString(),
                 OrderedQuantity = 1,
                 OrderDate = new DateTime(2020, 11, 28),
                 Comment = "Nem jó a kaputelefon, hívjon mindenképp a futár",
@@ -178,7 +41,6 @@ namespace PcWebapp.Controllers
             //Gipsz Jakab rendelt 3 db nztx házat
             Order o2 = new Order()
             {
-                OrderID = Guid.NewGuid().ToString(),
                 OrderedQuantity = 3,
                 OrderDate = DateTime.Now,
                 Comment = "Nagy címletben fizetek",
@@ -189,7 +51,6 @@ namespace PcWebapp.Controllers
             //Szuper Szabolcs rendelt 1 db rtx 2080-at
             Order o3 = new Order()
             {
-                OrderID = Guid.NewGuid().ToString(),
                 OrderedQuantity = 1,
                 OrderDate = new DateTime(2020, 12, 17),
                 Comment = "A leghelyesebb futár jöjjön",
@@ -202,7 +63,6 @@ namespace PcWebapp.Controllers
             #region Customers
             Customer c1 = new Customer()
             {
-                CustomerID = Guid.NewGuid().ToString(),
                 CustomerName = "Példa Béla",
                 EmailAddress = "peldabela@email.com",
                 PhoneNumber = "+36 12 345 6789",
@@ -215,7 +75,6 @@ namespace PcWebapp.Controllers
 
             Customer c2 = new Customer()
             {
-                CustomerID = Guid.NewGuid().ToString(),
                 CustomerName = "Gipsz jakab",
                 EmailAddress = "gipszjakab@email.com",
                 PhoneNumber = "+36 98 765 4321",
@@ -228,7 +87,6 @@ namespace PcWebapp.Controllers
 
             Customer c3 = new Customer()
             {
-                CustomerID = Guid.NewGuid().ToString(),
                 CustomerName = "Szuper Szabolcs",
                 EmailAddress = "szsz@email.com",
                 PhoneNumber = "+36 11 111 1111",
@@ -243,7 +101,6 @@ namespace PcWebapp.Controllers
             #region Products
             Product ryzen5600 = new Product()
             {
-                ProductID = Guid.NewGuid().ToString(),
                 ProductName = "Ryzen 5 5600x",
                 Category = ProductCategory.CPU,
                 Manufacturer = "AMD",
@@ -257,7 +114,6 @@ namespace PcWebapp.Controllers
 
             Product rtx2080 = new Product()
             {
-                ProductID = Guid.NewGuid().ToString(),
                 ProductName = "RTX 2080",
                 Category = ProductCategory.VideoCard,
                 Manufacturer = "NVidia",
@@ -271,7 +127,6 @@ namespace PcWebapp.Controllers
 
             Product nzxt1 = new Product()
             {
-                ProductID = Guid.NewGuid().ToString(),
                 ProductName = "NZXT 300",
                 Category = ProductCategory.Case,
                 Manufacturer = "NZXT",
@@ -285,7 +140,6 @@ namespace PcWebapp.Controllers
 
             Product rtx3080ti = new Product()
             {
-                ProductID = Guid.NewGuid().ToString(),
                 ProductName = "RTX 3080Ti",
                 Category = ProductCategory.VideoCard,
                 Manufacturer = "NVidia",
@@ -298,7 +152,6 @@ namespace PcWebapp.Controllers
 
             Product b550m = new Product()
             {
-                ProductID = Guid.NewGuid().ToString(),
                 ProductName = "B550M DS3H",
                 Category = ProductCategory.Motherboard,
                 Manufacturer = "Gigabyte",
@@ -311,7 +164,6 @@ namespace PcWebapp.Controllers
 
             Product k16ram = new Product()
             {
-                ProductID = Guid.NewGuid().ToString(),
                 ProductName = "Kingston 2x8 GB Ram",
                 Category = ProductCategory.RAM,
                 Manufacturer = "Kingston",
@@ -324,7 +176,6 @@ namespace PcWebapp.Controllers
 
             Product hyper212 = new Product()
             {
-                ProductID = Guid.NewGuid().ToString(),
                 ProductName = "Hyper 212 EVO",
                 Category = ProductCategory.Cooler,
                 Manufacturer = "Cooler Master",
@@ -337,7 +188,6 @@ namespace PcWebapp.Controllers
 
             Product ssd1 = new Product()
             {
-                ProductID = Guid.NewGuid().ToString(),
                 ProductName = "Samsung 500GB M.2 SSD",
                 Category = ProductCategory.Storage,
                 Manufacturer = "Samsung",
@@ -350,7 +200,6 @@ namespace PcWebapp.Controllers
 
             Product psu1 = new Product()
             {
-                ProductID = Guid.NewGuid().ToString(),
                 ProductName = "Corsair 600W Gold",
                 Category = ProductCategory.PowerSupply,
                 Manufacturer = "Corsair",
@@ -361,8 +210,23 @@ namespace PcWebapp.Controllers
             };
             productlogic.AddProduct(psu1);
             #endregion
+        }
 
-            return RedirectToAction(nameof(Index));
+        [HttpPost] // todo fix probably
+        public void CreateFullOrder([FromBody] ViewModel item)
+        {
+            orderlogic.GetOrder(item.OrderID).Customers.Add(customerlogic.GetCustomer(item.CustomerID));
+            customerlogic.GetCustomer(item.CustomerID).Products.Add(productlogic.GetProduct(item.ProductID));
+
+        }
+
+        [Authorize(Roles = "Admin")] // todo fix
+        [HttpDelete]
+        public void DeleteOrderCustomers([FromBody] ViewModel item)
+        {
+            // todo fix
+            customerlogic.GetCustomer(item.CustomerID).Products = new List<Product>();
+            orderlogic.GetOrder(item.OrderID).Customers = new List<Customer>();
         }
     }
 }
