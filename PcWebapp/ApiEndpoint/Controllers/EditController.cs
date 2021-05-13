@@ -210,5 +210,23 @@ namespace ApiEndpoint.Controllers
             productlogic.AddProduct(psu1);
             #endregion
         }
+
+        [HttpPost]
+        public void AddCustomerToOrder([FromBody] ViewModel item)
+        {
+            orderlogic.GetOrder(item.OrderID).Customers.Add(customerlogic.GetCustomer(item.CustomerID));
+        }
+
+        [HttpPost]
+        public void AddProductToCustomer([FromBody] ViewModel item)
+        {
+            customerlogic.GetCustomer(item.CustomerID).Products.Add(productlogic.GetProduct(item.ProductID));
+        }
+
+        [HttpDelete]
+        public void RemoveOrder([FromBody] ViewModel item)
+        {
+
+        }
     }
 }
