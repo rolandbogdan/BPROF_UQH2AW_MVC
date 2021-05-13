@@ -13,7 +13,15 @@ namespace Repository
 
         public void Add(Product item)
         {
-            ctx.Products.Add(item);
+            try
+            {
+                ctx.Products.Add(item);
+            }
+            catch (ArgumentNullException)
+            {
+                Save();
+            }
+
             Save();
         }
 

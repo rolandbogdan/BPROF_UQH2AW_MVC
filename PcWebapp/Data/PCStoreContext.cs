@@ -38,13 +38,12 @@ namespace Data
             base.OnModelCreating(modelbuilder);
 
             modelbuilder.Entity<IdentityRole>().HasData(
-                new { Id = "12d2ff91-0ea7-415f-90df-ef859d3442a3", Name = "Admin", NormalizedName = "ADMIN" },
-                new { Id = "9cea17a5-8122-487f-b1b5-59ec930f0055", Name = "Customer", NormalizedName = "CUSTOMER" }
-                );
+                new { Id = "341743f0-asd2–42de-afbf-59kmkkmk72cf6", Name = "Admin", NormalizedName = "ADMIN" },
+                new { Id = "341743f0-dee2–42de-bbbb-59kmkkmk72cf6", Name = "Customer", NormalizedName = "CUSTOMER" });
 
             var appUser = new IdentityUser
             {
-                Id = "257ae463-93dc-48ed-95f8-000c4fdb3629",
+                Id = "02174cf0–9412–4cfe-afbf-59f706d72cf6",
                 Email = "bogdanroland07@gmail.com",
                 NormalizedEmail = "bogdanroland07@gmail.com",
                 EmailConfirmed = true,
@@ -52,33 +51,24 @@ namespace Data
                 NormalizedUserName = "bogdanroland07@gmail.com",
                 SecurityStamp = string.Empty
             };
-            appUser.PasswordHash = new PasswordHasher<IdentityUser>().HashPassword(null, "Sajtvagyok123");
 
             var appUser2 = new IdentityUser
             {
-                Id = "f07f59d8-6a55-4f08-9fb8-40d12808197e",
-                Email = "peldabela@gmail.com",
-                NormalizedEmail = "peldabela@gmail.com",
+                Id = "e2174cf0–9412–4cfe-afbf-59f706d72cf6",
+                Email = "bob@gmail.com",
+                NormalizedEmail = "bob@gmail.com",
                 EmailConfirmed = true,
-                UserName = "peldabela@gmail.com",
-                NormalizedUserName = "peldabela@gmail.com",
+                UserName = "bob@gmail.com",
+                NormalizedUserName = "bob@gmail.com",
                 SecurityStamp = string.Empty
             };
-            appUser2.PasswordHash = new PasswordHasher<IdentityUser>().HashPassword(null, "Sajtvagyok123");
 
-            // admin
-            modelbuilder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
-            {
-                RoleId = "12d2ff91-0ea7-415f-90df-ef859d3442a3",
-                UserId = "257ae463-93dc-48ed-95f8-000c4fdb3629"
-            });
+            appUser.PasswordHash = new PasswordHasher<IdentityUser>().HashPassword(null, "Sajtvagyok123");
+            appUser2.PasswordHash = new PasswordHasher<IdentityUser>().HashPassword(null, "Bobvagyok123");
 
-            // customer
-            modelbuilder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
-            {
-                RoleId = "9cea17a5-8122-487f-b1b5-59ec930f0055",
-                UserId = "f07f59d8-6a55-4f08-9fb8-40d12808197e"
-            });
+
+            modelbuilder.Entity<IdentityUser>().HasData(appUser);
+            modelbuilder.Entity<IdentityUser>().HasData(appUser2);
 
             modelbuilder.Entity<Product>(entity =>
             {
