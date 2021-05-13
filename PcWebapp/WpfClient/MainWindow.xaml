@@ -14,7 +14,12 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <ListBox x:Name="lbox1" Margin="45,88,525,0" VerticalAlignment="Top" Height="196"/>
+        <ListBox x:Name="lbox1" Margin="45,88,525,0" VerticalAlignment="Top" Width ="200" Height="200"/>
 
+        <StackPanel Margin="472,88,77,123">
+            <Label FontSize="20" Content="Product name" Height="40" Width="200"/>
+            <TextBox x:Name="prod_name" Height="40"/>
+            <Button Content="Add" FontSize="20" Margin="70" Click="Button_Click" />
+        </StackPanel>
     </Grid>
 </Window>

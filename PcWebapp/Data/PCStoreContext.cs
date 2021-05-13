@@ -1,12 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Models;
+﻿using Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace Data
 {
-    public class PCStoreContext : DbContext
+    public class PCStoreContext : IdentityDbContext<IdentityUser>
     {
         public DbSet<Product> Products { get; set; }
         public DbSet<Customer> Customers { get; set; }
@@ -26,13 +28,16 @@ namespace Data
             {
                 optionsBuilder.
                     UseLazyLoadingProxies().
-                    UseSqlServer(@"data source=(LocalDB)\MSSQLLocalDB;attachdbfilename=|DataDirectory|\PCStore.mdf;integrated security=True;MultipleActiveResultSets=True");
+                    // UseSqlServer(@"data source=(LocalDB)\MSSQLLocalDB;attachdbfilename=|DataDirectory|\PCStore.mdf;integrated security=True;MultipleActiveResultSets=True");
+                    UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=WebshopDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelbuilder)
         {
             base.OnModelCreating(modelbuilder);
+
+            // todo admin user db seed
 
             modelbuilder.Entity<Product>(entity =>
             {

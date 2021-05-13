@@ -18,7 +18,6 @@ namespace PcWebapp.Controllers
         ProductLogic productlogic;
         OrderLogic orderlogic;
         StatsLogic statslogic;
-        public bool adminMode = false;
 
         public HomeController(CustomerLogic customerlogic, ProductLogic productlogic, OrderLogic orderlogic, StatsLogic statsLogic)
         {
@@ -30,17 +29,14 @@ namespace PcWebapp.Controllers
 
         public IActionResult Index()
         {
-            adminMode = false;
             return View();
         }
         public IActionResult UserIndex()
         {
-            adminMode = false;
             return View();
         }
         public IActionResult AdminIndex()
         {
-            adminMode = true;
             return View();
         }
 

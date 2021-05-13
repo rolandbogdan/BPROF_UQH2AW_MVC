@@ -29,7 +29,8 @@ namespace WpfClient
 
         public async Task GetCustomerNames()
         {
-            RestService restService = new RestService("https://localhost:5001/", "/Customer");
+            cbox1.ItemsSource = null;
+            RestService restService = new RestService("https://localhost:7766/", "/Customer");
             IEnumerable<Customer> customernames = await restService.Get<Customer>();
 
             cbox1.ItemsSource = customernames;
@@ -40,6 +41,22 @@ namespace WpfClient
         {
             Customer c1 = cbox1.SelectedItem as Customer;
             lbox1.ItemsSource = c1.Products.Select(p => p.ProductName);
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Product p = new Product()
+            {
+                ProductName = prod_name.Text,
+                Category = ProductCategory.CPU,
+                Manufacturer = "teszt",
+                Customer = cbox1.SelectedItem as Customer,
+                CustomerID = (cbox1.SelectedItem as Customer).CustomerID
+            };
+            (cbox1.SelectedItem as Customer).Products.Add(p);
+            RestService restservice = new RestService("https://localhost:7766", "/Product");
+            //restservice.Post<Product>(p);
+            //MessageBox.Show("Product added");
         }
     }
 }

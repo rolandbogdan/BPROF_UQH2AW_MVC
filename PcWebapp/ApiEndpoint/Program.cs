@@ -21,6 +21,10 @@ namespace ApiEndpoint
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                    webBuilder.UseKestrel(opts =>
+                    {
+                        opts.ListenAnyIP(7766, opts => opts.UseHttps());
+                    });
                 });
     }
 }

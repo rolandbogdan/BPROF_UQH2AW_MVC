@@ -1,7 +1,9 @@
+using Data;
 using Logic;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Models;
@@ -20,14 +22,30 @@ namespace ApiEndpoint
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
             services.AddTransient<ProductLogic, ProductLogic>();
             services.AddTransient<CustomerLogic, CustomerLogic>();
             services.AddTransient<OrderLogic, OrderLogic>();
+            services.AddTransient<AuthLogic, AuthLogic>();
+
+
             services.AddTransient<IRepository<Product>, ProductRepo>();
             services.AddTransient<IRepository<Customer>, CustomerRepo>();
             services.AddTransient<IRepository<Order>, OrderRepo>();
 
+            services.AddDbContext<PCStoreContext>();
 
+            services.AddIdentity<IdentityUser, IdentityRole>(
+                option =>
+                {
+                    option.Password.RequireDigit = true;
+                    option.Password.RequiredLength = 8;
+                    option.Password.RequireNonAlphanumeric = false;
+                    option.Password.RequireUppercase = true;
+                    option.Password.RequireLowercase = false;
+                }
+                ).AddEntityFrameworkStores<PCStoreContext>()
+                .AddDefaultTokenProviders();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
