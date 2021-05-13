@@ -14,6 +14,7 @@ namespace Models
     public class Product
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string ProductID { get; set; }
         [StringLength(50)]
         public string ProductName { get; set; }

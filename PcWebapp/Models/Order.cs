@@ -14,6 +14,7 @@ namespace Models
     public class Order
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string OrderID { get; set; }
         public int OrderedQuantity { get; set; }
         public DateTime OrderDate { get; set; }

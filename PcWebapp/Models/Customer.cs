@@ -10,6 +10,7 @@ namespace Models
     public class Customer
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string CustomerID { get; set; }
         [StringLength(50)]
         public string CustomerName { get; set; }

@@ -30,7 +30,6 @@ namespace ApiEndpoint.Controllers
             //Példa Béla rendelt egy ryzen 5600-at
             Order o1 = new Order()
             {
-                OrderID = Guid.NewGuid().ToString(),
                 OrderedQuantity = 1,
                 OrderDate = new DateTime(2020, 11, 28),
                 Comment = "Nem jó a kaputelefon, hívjon mindenképp a futár",
@@ -41,7 +40,6 @@ namespace ApiEndpoint.Controllers
             //Gipsz Jakab rendelt 3 db nztx házat
             Order o2 = new Order()
             {
-                OrderID = Guid.NewGuid().ToString(),
                 OrderedQuantity = 3,
                 OrderDate = DateTime.Now,
                 Comment = "Nagy címletben fizetek",
@@ -52,7 +50,6 @@ namespace ApiEndpoint.Controllers
             //Szuper Szabolcs rendelt 1 db rtx 2080-at
             Order o3 = new Order()
             {
-                OrderID = Guid.NewGuid().ToString(),
                 OrderedQuantity = 1,
                 OrderDate = new DateTime(2020, 12, 17),
                 Comment = "A leghelyesebb futár jöjjön",
@@ -65,7 +62,6 @@ namespace ApiEndpoint.Controllers
             #region Customers
             Customer c1 = new Customer()
             {
-                CustomerID = Guid.NewGuid().ToString(),
                 CustomerName = "Példa Béla",
                 EmailAddress = "peldabela@email.com",
                 PhoneNumber = "+36 12 345 6789",
@@ -78,7 +74,6 @@ namespace ApiEndpoint.Controllers
 
             Customer c2 = new Customer()
             {
-                CustomerID = Guid.NewGuid().ToString(),
                 CustomerName = "Gipsz jakab",
                 EmailAddress = "gipszjakab@email.com",
                 PhoneNumber = "+36 98 765 4321",
@@ -91,7 +86,6 @@ namespace ApiEndpoint.Controllers
 
             Customer c3 = new Customer()
             {
-                CustomerID = Guid.NewGuid().ToString(),
                 CustomerName = "Szuper Szabolcs",
                 EmailAddress = "szsz@email.com",
                 PhoneNumber = "+36 11 111 1111",
@@ -106,7 +100,6 @@ namespace ApiEndpoint.Controllers
             #region Products
             Product ryzen5600 = new Product()
             {
-                ProductID = Guid.NewGuid().ToString(),
                 ProductName = "Ryzen 5 5600x",
                 Category = ProductCategory.CPU,
                 Manufacturer = "AMD",
@@ -120,7 +113,6 @@ namespace ApiEndpoint.Controllers
 
             Product rtx2080 = new Product()
             {
-                ProductID = Guid.NewGuid().ToString(),
                 ProductName = "RTX 2080",
                 Category = ProductCategory.VideoCard,
                 Manufacturer = "NVidia",
@@ -134,7 +126,6 @@ namespace ApiEndpoint.Controllers
 
             Product nzxt1 = new Product()
             {
-                ProductID = Guid.NewGuid().ToString(),
                 ProductName = "NZXT 300",
                 Category = ProductCategory.Case,
                 Manufacturer = "NZXT",
@@ -148,7 +139,6 @@ namespace ApiEndpoint.Controllers
 
             Product rtx3080ti = new Product()
             {
-                ProductID = Guid.NewGuid().ToString(),
                 ProductName = "RTX 3080Ti",
                 Category = ProductCategory.VideoCard,
                 Manufacturer = "NVidia",
@@ -161,7 +151,6 @@ namespace ApiEndpoint.Controllers
 
             Product b550m = new Product()
             {
-                ProductID = Guid.NewGuid().ToString(),
                 ProductName = "B550M DS3H",
                 Category = ProductCategory.Motherboard,
                 Manufacturer = "Gigabyte",
@@ -174,7 +163,6 @@ namespace ApiEndpoint.Controllers
 
             Product k16ram = new Product()
             {
-                ProductID = Guid.NewGuid().ToString(),
                 ProductName = "Kingston 2x8 GB Ram",
                 Category = ProductCategory.RAM,
                 Manufacturer = "Kingston",
@@ -187,7 +175,6 @@ namespace ApiEndpoint.Controllers
 
             Product hyper212 = new Product()
             {
-                ProductID = Guid.NewGuid().ToString(),
                 ProductName = "Hyper 212 EVO",
                 Category = ProductCategory.Cooler,
                 Manufacturer = "Cooler Master",
@@ -200,7 +187,6 @@ namespace ApiEndpoint.Controllers
 
             Product ssd1 = new Product()
             {
-                ProductID = Guid.NewGuid().ToString(),
                 ProductName = "Samsung 500GB M.2 SSD",
                 Category = ProductCategory.Storage,
                 Manufacturer = "Samsung",
@@ -213,7 +199,6 @@ namespace ApiEndpoint.Controllers
 
             Product psu1 = new Product()
             {
-                ProductID = Guid.NewGuid().ToString(),
                 ProductName = "Corsair 600W Gold",
                 Category = ProductCategory.PowerSupply,
                 Manufacturer = "Corsair",
