@@ -40,6 +40,11 @@ namespace Logic
             {
                 await _userManager.AddToRoleAsync(user, "Customer");
             }
+            var emailConfirmToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            if (emailConfirmToken != string.Empty)
+            {
+                await _userManager.ConfirmEmailAsync(user, emailConfirmToken);
+            }
             return user.UserName;
         }
 

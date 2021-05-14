@@ -46,7 +46,7 @@ namespace ApiEndpoint.Controllers
         }
 
         [HttpPut("{oldid}")]
-        public void UpdateVideo(string oldid, [FromBody] Customer item)
+        public void UpdateCustomer(string oldid, [FromBody] Customer item)
         {
             logic.UpdateCustomer(oldid, item);
         }

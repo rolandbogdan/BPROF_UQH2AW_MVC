@@ -34,13 +34,14 @@ namespace WpfClient
             if (pw.ShowDialog() == true)
             {
                 RestService restService = new RestService("https://localhost:7766/", "/Auth");
+
                 TokenViewModel tvm = await restService.Put<TokenViewModel, LoginViewModel>(new LoginViewModel()
                 {
                     Username = pw.UserName,
                     Password = pw.Password
                 });
                 token = tvm.Token;
-                GetCustomerNames();
+                await GetCustomerNames();
             }
             else
             {
