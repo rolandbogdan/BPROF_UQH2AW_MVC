@@ -1,0 +1,27 @@
+﻿<Window x:Class="PcStoreWpfClient.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PcStoreWpfClient"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800"
+        Loaded="Window_Loaded"
+        Closing="Window_Closing">
+    <Window.DataContext>
+        <local:MainVM/>
+    </Window.DataContext>
+    <Grid>
+        <DataGrid IsReadOnly="True" SelectedItem="{Binding Path=SelectedProduct}"
+                  ItemsSource="{Binding Path=AllProducts}" HorizontalAlignment="Left"
+                  Height="306" Margin="10,10,0,0" VerticalAlignment="Top" Width="751"/>
+        <Button Command="{Binding Path=AddCmd}" Content="Add new product" HorizontalAlignment="Left"
+                Margin="50,350,0,0" VerticalAlignment="Top" Width="100" />
+        <Button Command="{Binding Path=ModCmd}" Content="Edit a product" HorizontalAlignment="Left"
+                Margin="175,350,0,0" VerticalAlignment="Top" Width="100" />
+        <Button Command="{Binding Path=DelCmd}" Content="Delete a product" HorizontalAlignment="Left"
+                Margin="300,350,0,0" VerticalAlignment="Top" Width="100" />
+        <Button Command="{Binding Path=LoadCmd}" Content="Refresh" HorizontalAlignment="Left"
+                Margin="50,395,0,0" VerticalAlignment="Top" Width="100" />
+    </Grid>
+</Window>

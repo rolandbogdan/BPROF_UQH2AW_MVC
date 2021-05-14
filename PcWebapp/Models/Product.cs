@@ -33,5 +33,21 @@ namespace Models
         public virtual Customer Customer { get; set; }
         public string CustomerID { get; set; }
 
+        public void CopyFrom(Product other)
+        {
+            if (other == null)
+            {
+                return;
+            }
+
+            this.ProductID = other.ProductID;
+            this.ProductName = other.ProductName;
+            this.Price = other.Price;
+            this.Category = other.Category;
+            this.Manufacturer = other.Manufacturer;
+            this.InStock = other.InStock;
+            this.Quantity = other.Quantity;
+            this.Description = other.Description;
+        }
     }
 }
