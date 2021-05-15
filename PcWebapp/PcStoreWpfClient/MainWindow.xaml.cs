@@ -128,9 +128,33 @@
             }
         }
 
-        private void EditProduct_ButtonClick(object sender, RoutedEventArgs e)
+        private async void EditProduct_ButtonClick(object sender, RoutedEventArgs e)
         {
+            if (DGrid1.SelectedItem as Product != null)
+            {
+                EditingWindow ew = new EditingWindow(DGrid1.SelectedItem as Product);
+                if (ew.ShowDialog() == true)
+                {
+                    RestService restService = new RestService("https://localhost:7766/", "/Product", token);
 
+                    if (ew.Product.ProductID == null || ew.Product.ProductID == string.Empty)
+                        ew.Product.ProductID = Guid.NewGuid().ToString();
+
+                    restService.Put<string, Product>((DGrid1.SelectedItem as Product).ProductID, ew.Product);
+                    MessageBox.Show("Product updated in the database");
+
+                    await this.GetCustomerNames();
+                    await this.RefreshProductList();
+                }
+                else
+                {
+                    MessageBox.Show("Modifying selected product was not successful");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Could not modify selected product.");
+            }
         }
     }
 }

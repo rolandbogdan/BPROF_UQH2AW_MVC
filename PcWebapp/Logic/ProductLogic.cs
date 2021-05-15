@@ -9,7 +9,6 @@ namespace Logic
 {
     public class ProductLogic
     {
-        //Miért kell az összes? Nem értem:(
         IRepository<Product> productRepo;
         IRepository<Customer> customerRepo;
         IRepository<Order> orderRepo;

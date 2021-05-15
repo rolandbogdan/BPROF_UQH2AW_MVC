@@ -224,7 +224,6 @@ namespace ApiEndpoint.Controllers
         [HttpDelete]
         public void DeleteOrderCustomers([FromBody] ViewModel item)
         {
-            // todo fix
             customerlogic.GetCustomer(item.CustomerID).Products = new List<Product>();
             orderlogic.GetOrder(item.OrderID).Customers = new List<Customer>();
         }

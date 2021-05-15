@@ -100,7 +100,6 @@ namespace PcStoreWpfClient
             HttpResponseMessage response =
                 await client.PutAsJsonAsync(endpoint + "/" + id.ToString(), item);
 
-
             response.EnsureSuccessStatusCode();
             return await response.Content.ReadAsAsync<R>();
         }
@@ -110,7 +109,6 @@ namespace PcStoreWpfClient
             HttpResponseMessage response =
                 await client.PutAsJsonAsync(endpoint + "/" + id.ToString(), item);
 
-
             response.EnsureSuccessStatusCode();
         }
 
@@ -118,7 +116,6 @@ namespace PcStoreWpfClient
         {
             HttpResponseMessage response =
                 await client.PutAsJsonAsync(endpoint + "/", item);
-
 
             response.EnsureSuccessStatusCode();
             return await response.Content.ReadAsAsync<R>();
