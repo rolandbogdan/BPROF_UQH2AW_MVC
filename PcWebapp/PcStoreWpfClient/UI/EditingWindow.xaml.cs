@@ -34,7 +34,7 @@
 
         public Product Product { get => this.vm.Product; }
 
-        private void OK_Click(object sender, RoutedEventArgs e)
+        private void Ok_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = true;
         }

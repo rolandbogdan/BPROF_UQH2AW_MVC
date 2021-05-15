@@ -24,26 +24,7 @@
         public MainWindow()
         {
             this.InitializeComponent();
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            Messenger.Default.Register<string>(this, "ProductResult", msg =>
-            {
-                (this.DataContext as MainVM).LoadCmd.Execute(null);
-                MessageBox.Show(msg);
-            });
-
-            (this.DataContext as MainVM).EditorFunc = (productVm) =>
-            {
-                EditingWindow win = new EditingWindow(productVm);
-                return win.ShowDialog() == true;
-            };
-        }
-
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            Messenger.Default.Unregister(this);
+            this.Login();
         }
 
         public async Task Login()
@@ -59,12 +40,27 @@
                     Password = lw.Password
                 });
                 token = tvm.Token;
+
+                await this.RefreshProductList();
             }
             else
             {
                 MessageBox.Show("error");
                 this.Close();
             }
+        }
+
+        private async Task RefreshProductList()
+        {
+            DGrid1.ItemsSource = null;
+            RestService restService = new RestService("https://localhost:7766/", "/Product", token);
+            IEnumerable<Product> productList = await restService.Get<Product>();
+            DGrid1.ItemsSource = productList;
+        }
+
+        private async void Refresh_Button_Click(object sender, RoutedEventArgs e)
+        {
+            await this.RefreshProductList();
         }
     }
 }

@@ -17,7 +17,6 @@
         private IMainLogic logic;
         private Product selectedProduct;
         private IList<Product> allProducts;
-        private string token;
 
         public MainVM(IMainLogic logic)
         {
