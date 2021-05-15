@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace Models
 {
@@ -13,6 +14,7 @@ namespace Models
     public class Product
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string ProductID { get; set; }
         [StringLength(50)]
         public string ProductName { get; set; }
@@ -27,8 +29,25 @@ namespace Models
 
 
         [NotMapped]
+        [JsonIgnore]
         public virtual Customer Customer { get; set; }
         public string CustomerID { get; set; }
 
+        public void CopyFrom(Product other)
+        {
+            if (other == null)
+            {
+                return;
+            }
+
+            this.ProductID = other.ProductID;
+            this.ProductName = other.ProductName;
+            this.Price = other.Price;
+            this.Category = other.Category;
+            this.Manufacturer = other.Manufacturer;
+            this.InStock = other.InStock;
+            this.Quantity = other.Quantity;
+            this.Description = other.Description;
+        }
     }
 }
