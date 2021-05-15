@@ -40,7 +40,7 @@ namespace ApiEndpoint.Controllers
         }
 
         [HttpPost]
-        public void AddProduct([FromBody] Customer item)
+        public void AddCustomer([FromBody] Customer item)
         {
             logic.AddCustomer(item);
         }

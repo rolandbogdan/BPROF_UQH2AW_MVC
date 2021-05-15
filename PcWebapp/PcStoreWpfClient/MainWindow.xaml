@@ -24,12 +24,22 @@
             </DataGrid.Columns>
         </DataGrid>
         <Button Content="Add new product" HorizontalAlignment="Left"
-                Margin="46,387,0,0" VerticalAlignment="Top" Width="100" />
+                Margin="46,387,0,0" VerticalAlignment="Top" Width="100" Click="AddNewProduct_ButtonClick" />
         <Button Content="Edit a product" HorizontalAlignment="Left"
                 Margin="171,387,0,0" VerticalAlignment="Top" Width="100" />
         <Button Content="Delete a product" HorizontalAlignment="Left"
                 Margin="296,387,0,0" VerticalAlignment="Top" Width="100" />
         <Button Content="Refresh" HorizontalAlignment="Left"
                 Margin="46,432,0,0" VerticalAlignment="Top" Width="100" Click="Refresh_Button_Click"/>
+
+        <Label Content="Customer:" HorizontalAlignment="Left" Margin="46,27,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="CustomerCbox" HorizontalAlignment="Left" Margin="120,29,0,0" VerticalAlignment="Top" Width="291" SelectionChanged="CustomerCbox_SelectionChanged">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <Label Content="{Binding CustomerName}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <Button Content="Clear Selection" HorizontalAlignment="Left" Margin="445,30,0,0" VerticalAlignment="Top" Click="ClearSelection_ButtonClick" Width="95"/>
     </Grid>
 </Window>
