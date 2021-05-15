@@ -33,7 +33,7 @@ namespace PcStoreWpfClient.UI
         {
             try
             {
-                RestService restService = new RestService("https://localhost:7766/", "/Auth");
+                RestService restService = new RestService("https://pcwebshop.azurewebsites.net/", "/Auth");
                 TokenViewModel tvm = await restService.Put<TokenViewModel, LoginViewModel>(new LoginViewModel()
                 {
                     Username = tb_username.Text,
@@ -50,7 +50,7 @@ namespace PcStoreWpfClient.UI
 
         private void Register_Button_click(object sender, RoutedEventArgs e)
         {
-            RestService restService = new RestService("https://localhost:7766/", "/Auth");
+            RestService restService = new RestService("https://pcwebshop.azurewebsites.net/", "/Auth");
             restService.Post<RegisterViewModel>(new RegisterViewModel()
             {
                 Email = tb_username.Text,

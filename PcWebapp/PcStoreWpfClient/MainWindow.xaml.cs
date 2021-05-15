@@ -41,7 +41,7 @@
         private async Task GetCustomerNames()
         {
             CustomerCbox.ItemsSource = null;
-            RestService restService = new RestService("https://localhost:7766/", "/Customer", token);
+            RestService restService = new RestService("https://pcwebshop.azurewebsites.net/", "/Customer", token);
             IEnumerable<Customer> customernames = await restService.Get<Customer>();
 
             CustomerCbox.ItemsSource = customernames;
@@ -61,7 +61,7 @@
         private async Task RefreshProductList()
         {
             DGrid1.ItemsSource = null;
-            RestService restService = new RestService("https://localhost:7766/", "/Product", token);
+            RestService restService = new RestService("https://pcwebshop.azurewebsites.net/", "/Product", token);
             IEnumerable<Product> productList = await restService.Get<Product>();
             DGrid1.ItemsSource = productList;
         }
@@ -93,7 +93,7 @@
             EditingWindow ew = new EditingWindow();
             if (ew.ShowDialog() == true)
             {
-                RestService restService = new RestService("https://localhost:7766/", "/Product", token);
+                RestService restService = new RestService("https://pcwebshop.azurewebsites.net/", "/Product", token);
 
                 if (ew.Product.ProductID == null || ew.Product.ProductID == string.Empty)
                     ew.Product.ProductID = Guid.NewGuid().ToString();
@@ -116,7 +116,7 @@
         {
             if (DGrid1.SelectedItem as Product != null)
             {
-                RestService restService = new RestService("https://localhost:7766/", "/Product", token);
+                RestService restService = new RestService("https://pcwebshop.azurewebsites.net/", "/Product", token);
                 restService.Delete<string>((DGrid1.SelectedItem as Product).ProductID);
                 MessageBox.Show("Product successfully deleted");
                 await this.GetCustomerNames();
@@ -135,7 +135,7 @@
                 EditingWindow ew = new EditingWindow(DGrid1.SelectedItem as Product);
                 if (ew.ShowDialog() == true)
                 {
-                    RestService restService = new RestService("https://localhost:7766/", "/Product", token);
+                    RestService restService = new RestService("https://pcwebshop.azurewebsites.net/", "/Product", token);
 
                     if (ew.Product.ProductID == null || ew.Product.ProductID == string.Empty)
                         ew.Product.ProductID = Guid.NewGuid().ToString();
