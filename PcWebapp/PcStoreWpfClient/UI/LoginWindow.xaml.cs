@@ -41,7 +41,6 @@ namespace PcStoreWpfClient.UI
                 });
                 Token = tvm.Token;
                 this.DialogResult = true;
-
             }
             catch (HttpRequestException)
             {

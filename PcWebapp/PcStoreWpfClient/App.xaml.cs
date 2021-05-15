@@ -15,9 +15,6 @@
     {
         public App()
         {
-            ServiceLocator.SetLocatorProvider(() => MyIoc.Instance);
-            MyIoc.Instance.Register<IMessenger>(() => Messenger.Default);
-            MyIoc.Instance.Register<IMainLogic, MainLogic>();
         }
     }
 }
