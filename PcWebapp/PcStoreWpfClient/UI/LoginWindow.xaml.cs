@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,18 +21,32 @@ namespace PcStoreWpfClient.UI
     /// </summary>
     public partial class LoginWindow : Window
     {
-        public string UserName { get; set; }
-        public string Password { get; set; }
+        //public string UserName { get; set; }
+        //public string Password { get; set; }
+        public string Token { get; private set; }
         public LoginWindow()
         {
             InitializeComponent();
         }
 
-        private void Login_Button_Click(object sender, RoutedEventArgs e)
+        private async void Login_Button_Click(object sender, RoutedEventArgs e)
         {
-            UserName = tb_username.Text;
-            Password = tb_pass.Password;
-            this.DialogResult = true;
+            try
+            {
+                RestService restService = new RestService("https://localhost:7766/", "/Auth");
+                TokenViewModel tvm = await restService.Put<TokenViewModel, LoginViewModel>(new LoginViewModel()
+                {
+                    Username = tb_username.Text,
+                    Password = tb_pass.Password
+                });
+                Token = tvm.Token;
+                this.DialogResult = true;
+
+            }
+            catch (HttpRequestException)
+            {
+                MessageBox.Show("Wrong Password or username");
+            }
         }
 
         private void Register_Button_click(object sender, RoutedEventArgs e)

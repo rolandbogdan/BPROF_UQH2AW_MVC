@@ -32,23 +32,30 @@
             LoginWindow lw = new LoginWindow();
             if (lw.ShowDialog() == true)
             {
-                RestService restService = new RestService("https://localhost:7766/", "/Auth");
-
-                TokenViewModel tvm = await restService.Put<TokenViewModel, LoginViewModel>(new LoginViewModel()
-                {
-                    Username = lw.UserName,
-                    Password = lw.Password
-                });
-                token = tvm.Token;
-
+                token = lw.Token;
                 await this.GetCustomerNames();
                 await this.RefreshProductList();
             }
-            else
-            {
-                MessageBox.Show("error");
-                this.Close();
-            }
+        }
+
+        private async Task GetCustomerNames()
+        {
+            CustomerCbox.ItemsSource = null;
+            RestService restService = new RestService("https://localhost:7766/", "/Customer", token);
+            IEnumerable<Customer> customernames = await restService.Get<Customer>();
+
+            CustomerCbox.ItemsSource = customernames;
+        }
+
+        private async void CustomerCbox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Customer customer = CustomerCbox.SelectedItem as Customer;
+            await RefreshProductList(customer);
+        }
+
+        private void ClearSelection_ButtonClick(object sender, RoutedEventArgs e)
+        {
+            CustomerCbox.SelectedIndex = -1;
         }
 
         private async Task RefreshProductList()
@@ -76,33 +83,9 @@
         private async void Refresh_Button_Click(object sender, RoutedEventArgs e)
         {
             if (CustomerCbox.SelectedItem as Customer == null)
-            {
                 await this.RefreshProductList();
-            }
             else
-            {
                 await this.RefreshProductList(CustomerCbox.SelectedItem as Customer);
-            }
-        }
-
-        private async void CustomerCbox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            Customer customer = CustomerCbox.SelectedItem as Customer;
-            await RefreshProductList(customer);
-        }
-
-        private async Task GetCustomerNames()
-        {
-            CustomerCbox.ItemsSource = null;
-            RestService restService = new RestService("https://localhost:7766/", "/Customer", token);
-            IEnumerable<Customer> customernames = await restService.Get<Customer>();
-
-            CustomerCbox.ItemsSource = customernames;
-        }
-
-        private void ClearSelection_ButtonClick(object sender, RoutedEventArgs e)
-        {
-            CustomerCbox.SelectedIndex = -1;
         }
 
         private async void AddNewProduct_ButtonClick(object sender, RoutedEventArgs e)
