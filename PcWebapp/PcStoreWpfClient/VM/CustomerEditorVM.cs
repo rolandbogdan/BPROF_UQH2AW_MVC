@@ -19,7 +19,6 @@ namespace PcStoreWpfClient.VM
             {
                 this.Customer.CustomerName = "Bob Testing";
                 this.Customer.EmailAddress = "bob@gmail.com";
-                this.Customer.Password = "Bobvagyok123";
                 this.Customer.Address = "Budapest Fő utca 1.";
                 this.Customer.PhoneNumber = "+36 30 300 3000";
             }
@@ -27,8 +26,8 @@ namespace PcStoreWpfClient.VM
 
         public Customer Customer
         {
-            get { return customer; }
-            set { customer = value; }
+            get { return this.customer; }
+            set { this.Set(ref this.customer, value); }
         }
     }
 }
