@@ -23,8 +23,21 @@
         private string token;
         public MainWindow()
         {
+            token = string.Empty;
             this.InitializeComponent();
             this.Login();
+            if (token == string.Empty)
+            {
+                this.Close();
+            }
+        }
+
+        public MainWindow(string recievedToken)
+        {
+            this.InitializeComponent();
+            this.token = recievedToken;
+            this.GetCustomerNames();
+            this.RefreshProductList();
         }
 
         private async Task Login()
@@ -155,6 +168,80 @@
             {
                 MessageBox.Show("Could not modify selected product.");
             }
+        }
+
+        private async void AddNewCustomer_ButtonClick(object sender, RoutedEventArgs e)
+        {
+            CustomerEditingWindow ew = new CustomerEditingWindow();
+            if (ew.ShowDialog() == true)
+            {
+                RestService restService = new RestService("https://pcwebshop.azurewebsites.net/", "/Customer", token);
+
+                if (ew.Customer.CustomerID == null || ew.Customer.CustomerID == string.Empty)
+                    ew.Customer.CustomerID = Guid.NewGuid().ToString();
+
+                restService.Post<Customer>(ew.Customer);
+                MessageBox.Show("Customer added to database");
+
+                await this.GetCustomerNames();
+                await this.RefreshProductList();
+            }
+            else
+            {
+                MessageBox.Show("Adding new customer was not successful");
+            }
+        }
+
+        private async void EditCustomer_ButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (CustomerCbox.SelectedItem as Customer != null)
+            {
+                CustomerEditingWindow ew = new CustomerEditingWindow(CustomerCbox.SelectedItem as Customer);
+                if (ew.ShowDialog() == true)
+                {
+                    RestService restService = new RestService("https://pcwebshop.azurewebsites.net/", "/Customer", token);
+
+                    if (ew.Customer.CustomerID == null || ew.Customer.CustomerID == string.Empty)
+                        ew.Customer.CustomerID = Guid.NewGuid().ToString();
+
+                    restService.Put<string, Customer>((CustomerCbox.SelectedItem as Customer).CustomerID, ew.Customer);
+                    MessageBox.Show("Customer updated in the database");
+
+                    await this.GetCustomerNames();
+                    await this.RefreshProductList();
+                }
+                else
+                {
+                    MessageBox.Show("Modifying selected customer was not successful");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Could not modify selected customer.");
+            }
+        }
+
+        private async void DeleteCustomer_ButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (CustomerCbox.SelectedItem as Customer != null)
+            {
+                RestService restService = new RestService("https://pcwebshop.azurewebsites.net/", "/Customer", token);
+                restService.Delete<string>((CustomerCbox.SelectedItem as Customer).CustomerID);
+                MessageBox.Show("Customer successfully deleted");
+                await this.GetCustomerNames();
+                await this.RefreshProductList();
+            }
+            else
+            {
+                MessageBox.Show("Could not delete customer");
+            }
+        }
+
+        private void SignOut_ButtonClick(object sender, RoutedEventArgs e)
+        {
+            MainWindow newMW = new MainWindow();
+            this.Close();
+            newMW.Show();
         }
     }
 }
