@@ -6,12 +6,8 @@
         xmlns:local="clr-namespace:PcStoreWpfClient"
         mc:Ignorable="d"
         Title="MainWindow" Height="525" Width="800">
-    <Window.DataContext>
-        <local:MainVM/>
-    </Window.DataContext>
     <Grid>
-        <DataGrid x:Name="DGrid1" IsReadOnly="True" SelectedItem="{Binding Path=SelectedProduct}"
-                  ItemsSource="{Binding Path=AllProducts}" HorizontalAlignment="Left"
+        <DataGrid x:Name="DGrid1" IsReadOnly="True" HorizontalAlignment="Left"
                   Height="306" Margin="10,67,0,0" VerticalAlignment="Top" Width="751"
                   AutoGenerateColumns="False">
             <DataGrid.Columns>
@@ -41,5 +37,8 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
         <Button Content="Clear Selection" HorizontalAlignment="Left" Margin="445,30,0,0" VerticalAlignment="Top" Click="ClearSelection_ButtonClick" Width="95"/>
+        <Button Content="Switch to customer editor" HorizontalAlignment="Left" Margin="612,387,0,0" VerticalAlignment="Top" Width="149" Height="30" Click="SwitchView_ButtonClick"/>
+        <Button Content="Sign out" HorizontalAlignment="Left" Margin="612,442,0,0" VerticalAlignment="Top" Width="149" Height="30"/>
+
     </Grid>
 </Window>

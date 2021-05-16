@@ -27,6 +27,14 @@
             this.Login();
         }
 
+        public MainWindow(string recievedToken)
+        {
+            this.InitializeComponent();
+            this.token = recievedToken;
+            this.GetCustomerNames();
+            this.RefreshProductList();
+        }
+
         private async Task Login()
         {
             LoginWindow lw = new LoginWindow();
@@ -155,6 +163,13 @@
             {
                 MessageBox.Show("Could not modify selected product.");
             }
+        }
+
+        private void SwitchView_ButtonClick(object sender, RoutedEventArgs e)
+        {
+            CustomerManagerWindow cmw = new CustomerManagerWindow() { Token = this.token };
+            cmw.Show();
+            this.Close();
         }
     }
 }
