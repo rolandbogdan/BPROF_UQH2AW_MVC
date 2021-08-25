@@ -53,8 +53,6 @@ namespace Logic
             var user = await _userManager.FindByNameAsync(model.Username);
             if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
             {
-
-
                 var claims = new List<Claim>
                 {
                   new Claim(JwtRegisteredClaimNames.Sub, model.Username),
@@ -62,11 +60,9 @@ namespace Logic
                   new Claim(ClaimTypes.NameIdentifier, user.Id)
                 };
 
-
                 var roles = await _userManager.GetRolesAsync(user);
 
                 claims.AddRange(roles.Select(role => new Claim(ClaimsIdentity.DefaultRoleClaimType, role)));
-
 
                 var signinKey = new SymmetricSecurityKey(
                   Encoding.UTF8.GetBytes("Paris Berlin Cairo Sydney Tokyo Beijing Rome London Athens"));
