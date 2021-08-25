@@ -28,9 +28,8 @@ namespace Data
             {
                 optionsBuilder.
                     UseLazyLoadingProxies().
-                    UseSqlServer("Server=tcp:broland.database.windows.net,1433;Initial Catalog=pcstoredb;Persist Security Info=False;User ID=broli27;Password=Roliqwer270123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
-                    // UseSqlServer(@"data source=(LocalDB)\MSSQLLocalDB;attachdbfilename=|DataDirectory|\PCStore.mdf;integrated security=True;MultipleActiveResultSets=True");
-                    // UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=WebshopDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+                    UseSqlServer(
+                    @"Data Source = (localdb)\MSSQLLocalDB; Initial Catalog = WebshopDB; Integrated Security = True; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
             }
         }
 

@@ -54,7 +54,7 @@
         private async Task GetCustomerNames()
         {
             CustomerCbox.ItemsSource = null;
-            RestService restService = new RestService("https://pcwebshop.azurewebsites.net/", "/Customer", token);
+            RestService restService = new RestService("https://localhost:5001/", "/Customer", token);
             IEnumerable<Customer> customernames = await restService.Get<Customer>();
 
             CustomerCbox.ItemsSource = customernames;
@@ -74,7 +74,7 @@
         private async Task RefreshProductList()
         {
             DGrid1.ItemsSource = null;
-            RestService restService = new RestService("https://pcwebshop.azurewebsites.net/", "/Product", token);
+            RestService restService = new RestService("https://localhost:5001/", "/Product", token);
             IEnumerable<Product> productList = await restService.Get<Product>();
             DGrid1.ItemsSource = productList;
         }
@@ -106,7 +106,7 @@
             EditingWindow ew = new EditingWindow();
             if (ew.ShowDialog() == true)
             {
-                RestService restService = new RestService("https://pcwebshop.azurewebsites.net/", "/Product", token);
+                RestService restService = new RestService("https://localhost:5001/", "/Product", token);
 
                 if (ew.Product.ProductID == null || ew.Product.ProductID == string.Empty)
                     ew.Product.ProductID = Guid.NewGuid().ToString();
@@ -129,7 +129,7 @@
         {
             if (DGrid1.SelectedItem as Product != null)
             {
-                RestService restService = new RestService("https://pcwebshop.azurewebsites.net/", "/Product", token);
+                RestService restService = new RestService("https://localhost:5001/", "/Product", token);
                 restService.Delete<string>((DGrid1.SelectedItem as Product).ProductID);
                 MessageBox.Show("Product successfully deleted");
                 await this.GetCustomerNames();
@@ -148,7 +148,7 @@
                 EditingWindow ew = new EditingWindow(DGrid1.SelectedItem as Product);
                 if (ew.ShowDialog() == true)
                 {
-                    RestService restService = new RestService("https://pcwebshop.azurewebsites.net/", "/Product", token);
+                    RestService restService = new RestService("https://localhost:5001/", "/Product", token);
 
                     if (ew.Product.ProductID == null || ew.Product.ProductID == string.Empty)
                         ew.Product.ProductID = Guid.NewGuid().ToString();
@@ -175,7 +175,7 @@
             CustomerEditingWindow ew = new CustomerEditingWindow();
             if (ew.ShowDialog() == true)
             {
-                RestService restService = new RestService("https://pcwebshop.azurewebsites.net/", "/Customer", token);
+                RestService restService = new RestService("https://localhost:5001/", "/Customer", token);
 
                 if (ew.Customer.CustomerID == null || ew.Customer.CustomerID == string.Empty)
                     ew.Customer.CustomerID = Guid.NewGuid().ToString();
@@ -199,7 +199,7 @@
                 CustomerEditingWindow ew = new CustomerEditingWindow(CustomerCbox.SelectedItem as Customer);
                 if (ew.ShowDialog() == true)
                 {
-                    RestService restService = new RestService("https://pcwebshop.azurewebsites.net/", "/Customer", token);
+                    RestService restService = new RestService("https://localhost:5001/", "/Customer", token);
 
                     if (ew.Customer.CustomerID == null || ew.Customer.CustomerID == string.Empty)
                         ew.Customer.CustomerID = Guid.NewGuid().ToString();
@@ -225,7 +225,7 @@
         {
             if (CustomerCbox.SelectedItem as Customer != null)
             {
-                RestService restService = new RestService("https://pcwebshop.azurewebsites.net/", "/Customer", token);
+                RestService restService = new RestService("https://localhost:5001/", "/Customer", token);
                 restService.Delete<string>((CustomerCbox.SelectedItem as Customer).CustomerID);
                 MessageBox.Show("Customer successfully deleted");
                 await this.GetCustomerNames();
